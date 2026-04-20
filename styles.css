@@ -55,67 +55,70 @@
 .loader__inner {
   position: relative;
   z-index: 2;
-  width: min(380px, calc(100vw - 48px));
-  display: flex;
+  max-width: calc(100vw - 40px);
+  display: inline-flex;
   flex-direction: column;
+  align-items: stretch;
+  width: auto;
+}
+
+.loader__row {
+  display: flex;
   align-items: center;
-  text-align: center;
+  gap: 20px;
+  margin-bottom: 22px;
 }
 
 .loader__logo,
 .loader__logo-fallback {
-  width: 72px;
-  height: 72px;
+  width: 84px;
+  height: 84px;
+  flex-shrink: 0;
   display: block;
   object-fit: contain;
-  margin-bottom: 22px;
 }
 
 .loader__logo-fallback {
-  border-radius: 14px;
+  border-radius: 16px;
   background: var(--khaki);
   color: #f0ede6;
   font-family: 'Unbounded', sans-serif;
   font-weight: 700;
-  font-size: 34px;
+  font-size: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.loader__text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
 .loader__title {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 700;
-  font-size: 40px;
+  font-size: 28px;
   line-height: 1;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   color: #2a2a24;
   white-space: nowrap;
-  text-indent: 0.12em;
-}
-
-.loader__divider {
-  width: 32px;
-  height: 1px;
-  background: var(--khaki);
-  opacity: 0.55;
-  margin: 16px 0 14px;
 }
 
 .loader__subtitle {
   font-family: 'Manrope', sans-serif;
   font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.38em;
+  font-size: 14px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #6d6d63;
   white-space: nowrap;
-  text-indent: 0.38em;
-  margin-bottom: 36px;
 }
 
 .loader__bar {
-  width: 180px;
+  width: 100%;
   height: 1px;
   background: rgba(75, 83, 32, 0.22);
   position: relative;
@@ -578,25 +581,19 @@ a {
   .marquee-item { font-size: 11px; gap: 18px; padding: 0 18px; }
   .hero__marquee-track { animation-duration: 24s; }
 
-  /* LOADER: compact, centered */
-  .loader { padding: 24px; }
+  /* LOADER: row with logo + text, bar below */
+  .loader { padding: 20px; }
+  .loader__row { gap: 14px; margin-bottom: 18px; }
   .loader__logo,
-  .loader__logo-fallback {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 18px;
-  }
+  .loader__logo-fallback { width: 60px; height: 60px; }
   .loader__logo-fallback { font-size: 28px; border-radius: 12px; }
-  .loader__title { font-size: 32px; letter-spacing: 0.1em; }
-  .loader__divider { margin: 14px 0 12px; width: 28px; }
-  .loader__subtitle { font-size: 10px; letter-spacing: 0.32em; margin-bottom: 28px; }
-  .loader__bar { width: 160px; }
 }
 
 @media (max-width: 380px) {
   .hero__content { padding: 52vh 16px 80px; }
   .hero__title { font-size: 28px; }
-  .loader__title { font-size: 28px; }
+  .loader__logo,
+  .loader__logo-fallback { width: 52px; height: 52px; }
   .marquee-item { font-size: 10px; }
 }
 

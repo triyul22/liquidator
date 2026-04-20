@@ -15,10 +15,13 @@
 
   <div class="loader" id="siteLoader" aria-hidden="true">
     <div class="loader__inner">
-      <img src="assets/logo.svg" alt="" class="loader__logo" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'loader__logo-fallback',textContent:'Л'}))"/>
-      <div class="loader__title">ЛИКВИДАТОР</div>
-      <div class="loader__divider"></div>
-      <div class="loader__subtitle">Юридическая компания</div>
+      <div class="loader__row">
+        <img src="assets/logo.svg" alt="" class="loader__logo" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'loader__logo-fallback',textContent:'Л'}))"/>
+        <div class="loader__text">
+          <div class="loader__title">ЛИКВИДАТОР</div>
+          <div class="loader__subtitle">Юридическая компания</div>
+        </div>
+      </div>
       <div class="loader__bar"><div class="loader__bar-fill" id="loaderBarFill"></div></div>
     </div>
   </div>
