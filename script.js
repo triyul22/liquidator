@@ -37,53 +37,17 @@ onScroll();
 
 const lion = document.getElementById('heroLion');
 if (lion) {
-  let lastFrameCanvas = null;
-
-  const captureFrame = () => {
-    try {
-      if (!lion.videoWidth || !lion.videoHeight) return;
-      if (!lastFrameCanvas) {
-        lastFrameCanvas = document.createElement('canvas');
-        lastFrameCanvas.width = lion.videoWidth;
-        lastFrameCanvas.height = lion.videoHeight;
-      }
-      const ctx = lastFrameCanvas.getContext('2d');
-      ctx.drawImage(lion, 0, 0, lastFrameCanvas.width, lastFrameCanvas.height);
-    } catch (e) {}
+  let frozen = false;
+  const freezeNow = () => {
+    if (frozen) return;
+    frozen = true;
+    lion.pause();
   };
-
-  if ('requestVideoFrameCallback' in lion) {
-    const onFrame = () => {
-      captureFrame();
-      if (!lion.ended && !lion.paused) {
-        lion.requestVideoFrameCallback(onFrame);
-      }
-    };
-    lion.requestVideoFrameCallback(onFrame);
-  } else {
-    lion.addEventListener('timeupdate', captureFrame);
-  }
-
-  let swapped = false;
-  const swapToCanvas = () => {
-    if (swapped) return;
-    captureFrame();
-    if (!lastFrameCanvas) return;
-    swapped = true;
-
-    lastFrameCanvas.className = lion.className;
-
-    if (lion.parentNode) {
-      lion.parentNode.replaceChild(lastFrameCanvas, lion);
-    }
-  };
-
-  lion.addEventListener('ended', swapToCanvas);
 
   lion.addEventListener('timeupdate', () => {
     if (!lion.duration || !isFinite(lion.duration)) return;
-    if (lion.currentTime >= lion.duration - 0.15) {
-      swapToCanvas();
+    if (lion.currentTime >= lion.duration - 0.12) {
+      freezeNow();
     }
   });
 }
