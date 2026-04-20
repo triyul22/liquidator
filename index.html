@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ЛИКВИДАТОР - списание долгов и взыскание задолженности</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="loader" id="siteLoader" aria-hidden="true">
+    <div class="loader__inner">
+      <div class="loader__row">
+        <img src="assets/logo.svg" alt="" class="loader__logo" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'loader__logo-fallback',textContent:'Л'}))"/>
+        <div class="loader__text">
+          <div class="loader__title">ЛИКВИДАТОР</div>
+          <div class="loader__subtitle">Юридическая компания</div>
+        </div>
+      </div>
+      <div class="loader__bar"><div class="loader__bar-fill" id="loaderBarFill"></div></div>
+    </div>
+  </div>
+
+  <header class="header" id="header">
+    <div class="header__inner">
+      <nav class="header__nav header__nav--left">
+        <a href="#services">УСЛУГИ</a>
+        <a href="#cases">КЕЙСЫ</a>
+      </nav>
+
+      <a href="#" class="header__brand">
+        <img src="assets/logo.svg" alt="" class="header__logo" onerror="this.style.display='none'"/>
+        <span class="header__brand-text">ЛИКВИДАТОР</span>
+      </a>
+
+      <nav class="header__nav header__nav--right">
+        <a href="#knowledge">БАЗА ЗНАНИЙ</a>
+        <a href="#contacts">КОНТАКТЫ</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero__split">
+      <div class="hero__side hero__side--dark"></div>
+      <div class="hero__side hero__side--light"></div>
+    </div>
+
+    <video
+      class="hero__lion"
+      id="heroLion"
+      src="assets/lion.mp4"
+      muted
+      playsinline
+      preload="auto"
+      poster="assets/lion.png"
+    ></video>
+
+    <div class="hero__content">
+      <h1 class="hero__title">
+        ВАШИ ДОЛГИ -<br/>
+        НАШЕ РЕШЕНИЕ
+      </h1>
+
+      <p class="hero__subtitle">
+        Надежная поддержка в списании долгов и взыскании задолженности
+      </p>
+
+      <a href="#contacts" class="hero__cta">
+        <span>ПОЛУЧИТЬ РЕШЕНИЕ</span>
+      </a>
+
+      <div class="hero__footnote">
+        <p class="hero__footnote-primary">Работаем с физическими<br/>лицами и бизнесом</p>
+        <p class="hero__footnote-law">Федеральный закон «О несостоятельности» от 26.10.2002 № 127-ФЗ</p>
+      </div>
+    </div>
+
+    <div class="hero__marquee" aria-hidden="true">
+      <div class="hero__marquee-track">
+        <div class="marquee-item">Банкротство физических лиц<span class="marquee-dot"></span></div>
+        <div class="marquee-item">Банкротство ИП<span class="marquee-dot"></span></div>
+        <div class="marquee-item">Банкротство юридических лиц<span class="marquee-dot"></span></div>
+        <div class="marquee-item">Досудебное урегулирование<span class="marquee-dot"></span></div>
+        <div class="marquee-item">Взыскание дебиторской задолженности<span class="marquee-dot"></span></div>
+        <div class="marquee-item">Мировое соглашение<span class="marquee-dot"></span></div>
+        <div class="marquee-item">Медиативное соглашение<span class="marquee-dot"></span></div>
+        <div class="marquee-item">Банкротство физических лиц<span class="marquee-dot"></span></div>
+        <div class="marquee-item">Банкротство ИП<span class="marquee-dot"></span></div>
+        <div class="marquee-item">Банкротство юридических лиц<span class="marquee-dot"></span></div>
+        <div class="marquee-item">Досудебное урегулирование<span class="marquee-dot"></span></div>
+        <div class="marquee-item">Взыскание дебиторской задолженности<span class="marquee-dot"></span></div>
+        <div class="marquee-item">Мировое соглашение<span class="marquee-dot"></span></div>
+        <div class="marquee-item">Медиативное соглашение<span class="marquee-dot"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cases" id="cases">
+    <div class="cases__bg" aria-hidden="true"></div>
+    <div class="cases__overlay" aria-hidden="true"></div>
+
+    <div class="cases__container">
+      <div class="cases__grid">
+
+        <div class="cases__left">
+          <h2 class="cases__title">
+            ПОЧЕМУ КЛИЕНТЫ<br/>ВЫБИРАЮТ НАС?
+          </h2>
+          <p class="cases__subtitle">
+            Надежные решения, прозрачный процесс<br/>и реальные результаты
+          </p>
+
+          <ul class="features">
+            <li class="feature">
+              <div class="feature__icon">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path class="f-doc-page" d="M12 6h18l8 8v28H12z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <path class="f-doc-fold" d="M30 6v8h8" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <path class="f-doc-check" d="M18 26l5 5 9-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="feature__text">
+                <h3 class="feature__title">Прозрачные условия</h3>
+                <p class="feature__desc">Без скрытых платежей<br/>и неожиданных комиссий</p>
+              </div>
+            </li>
+
+            <li class="feature">
+              <div class="feature__icon">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path class="f-shield-body" d="M24 5l15 5v12c0 10-7 17-15 21-8-4-15-11-15-21V10l15-5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <path class="f-shield-star" d="M24 16l2.5 5.2 5.8.8-4.2 4 1 5.7L24 29l-5.1 2.7 1-5.7-4.2-4 5.8-.8L24 16z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="feature__text">
+                <h3 class="feature__title">Опыт более 10 лет</h3>
+                <p class="feature__desc">Решили тысячи дел<br/>по списанию долгов</p>
+              </div>
+            </li>
+
+            <li class="feature">
+              <div class="feature__icon">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect class="f-case-body" x="6" y="14" width="36" height="26" rx="3" stroke="currentColor" stroke-width="1.8"/>
+                  <path class="f-case-handle" d="M18 14v-4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  <path class="f-case-line" d="M6 24h36" stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+              </div>
+              <div class="feature__text">
+                <h3 class="feature__title">Работаем под ключ</h3>
+                <p class="feature__desc">От анализа до полного<br/>закрытия вопроса</p>
+              </div>
+            </li>
+
+            <li class="feature">
+              <div class="feature__icon">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle class="f-user-head" cx="24" cy="17" r="7" stroke="currentColor" stroke-width="1.8"/>
+                  <path class="f-user-body" d="M9 42c1.5-9 8-14 15-14s13.5 5 15 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  <path class="f-user-shield" d="M36 8l5 2v4c0 4-2.5 6.5-5 7.5-2.5-1-5-3.5-5-7.5v-4l5-2z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                </svg>
+              </div>
+              <div class="feature__text">
+                <h3 class="feature__title">Защищаем клиента</h3>
+                <p class="feature__desc">Минимизируем риски и давление<br/>со стороны кредиторов</p>
+              </div>
+            </li>
+
+            <li class="feature">
+              <div class="feature__icon">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle class="f-target-out" cx="24" cy="24" r="18" stroke="currentColor" stroke-width="1.8"/>
+                  <circle class="f-target-mid" cx="24" cy="24" r="11" stroke="currentColor" stroke-width="1.8"/>
+                  <circle class="f-target-in" cx="24" cy="24" r="4.5" stroke="currentColor" stroke-width="1.8" fill="currentColor" fill-opacity="0.15"/>
+                  <path class="f-target-cross" d="M24 2v10M24 36v10M2 24h10M36 24h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="feature__text">
+                <h3 class="feature__title">Индивидуальный подход</h3>
+                <p class="feature__desc">Подбираем стратегию<br/>под вашу ситуацию</p>
+              </div>
+            </li>
+          </ul>
+
+          <a href="#contacts" class="cases__cta">
+            <span>УЗНАТЬ ПОДРОБНЕЕ</span>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="cases__right">
+          <div class="cases__right-head">
+            <h3 class="cases__right-title">СУДЕБНЫЕ РЕШЕНИЯ</h3>
+            <p class="cases__right-sub">Реальные дела. Реальные результаты.</p>
+          </div>
+
+          <div class="cases__list" id="casesList">
+            <!-- Featured (first) card -->
+            <article class="case-card case-card--featured" data-idx="1">
+              <div class="case-card__top">
+                <div class="case-card__id">
+                  <svg class="case-card__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3v18M4 8h16M6 8l-3 6h6l-3-6zm12 0l-3 6h6l-3-6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span>Дело № А40-123456/2024</span>
+                </div>
+                <span class="case-card__status">Долг списан</span>
+              </div>
+              <p class="case-card__desc">
+                Клиент обратился с долгом более 2 850 000 ₽. Благодаря нашей стратегии дело завершено полным списанием задолженности.
+              </p>
+              <div class="case-card__meta">
+                <div>
+                  <span class="case-card__meta-label">Сумма долга</span>
+                  <span class="case-card__meta-value">2 850 000 ₽</span>
+                </div>
+                <div>
+                  <span class="case-card__meta-label">Решение суда</span>
+                  <span class="case-card__meta-value case-card__meta-value--muted">Списание долга</span>
+                </div>
+              </div>
+              <a href="#" class="case-card__link">
+                <span>Посмотреть решение</span>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </article>
+
+            <!-- Cards 2-4 (visible compact) -->
+            <article class="case-card" data-idx="2">
+              <div class="case-card__top">
+                <span class="case-card__id-compact">Дело № А56-789101/2024</span>
+                <span class="case-card__status">Долг списан</span>
+              </div>
+              <div class="case-card__meta">
+                <div>
+                  <span class="case-card__meta-label">Сумма долга</span>
+                  <span class="case-card__meta-value">1 980 000 ₽</span>
+                </div>
+                <div>
+                  <span class="case-card__meta-label">Решение суда</span>
+                  <span class="case-card__meta-value case-card__meta-value--muted">Списание долга</span>
+                </div>
+              </div>
+              <a href="#" class="case-card__link">
+                <span>Посмотреть решение</span>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </article>
+
+            <article class="case-card" data-idx="3">
+              <div class="case-card__top">
+                <span class="case-card__id-compact">Дело № А45-234567/2023</span>
+                <span class="case-card__status">Долг списан</span>
+              </div>
+              <div class="case-card__meta">
+                <div>
+                  <span class="case-card__meta-label">Сумма долга</span>
+                  <span class="case-card__meta-value">1 350 000 ₽</span>
+                </div>
+                <div>
+                  <span class="case-card__meta-label">Решение суда</span>
+                  <span class="case-card__meta-value case-card__meta-value--muted">Списание долга</span>
+                </div>
+              </div>
+              <a href="#" class="case-card__link">
+                <span>Посмотреть решение</span>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </article>
+
+            <article class="case-card" data-idx="4">
+              <div class="case-card__top">
+                <span class="case-card__id-compact">Дело № А41-987654/2023</span>
+                <span class="case-card__status">Долг списан</span>
+              </div>
+              <div class="case-card__meta">
+                <div>
+                  <span class="case-card__meta-label">Сумма долга</span>
+                  <span class="case-card__meta-value">3 120 000 ₽</span>
+                </div>
+                <div>
+                  <span class="case-card__meta-label">Решение суда</span>
+                  <span class="case-card__meta-value case-card__meta-value--muted">Списание долга</span>
+                </div>
+              </div>
+              <a href="#" class="case-card__link">
+                <span>Посмотреть решение</span>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </article>
+
+            <!-- Hidden cards 5-12 -->
+            <article class="case-card case-card--hidden" data-idx="5">
+              <div class="case-card__top">
+                <span class="case-card__id-compact">Дело № А40-334122/2024</span>
+                <span class="case-card__status">Долг списан</span>
+              </div>
+              <div class="case-card__meta">
+                <div>
+                  <span class="case-card__meta-label">Сумма долга</span>
+                  <span class="case-card__meta-value">4 210 000 ₽</span>
+                </div>
+                <div>
+                  <span class="case-card__meta-label">Решение суда</span>
+                  <span class="case-card__meta-value case-card__meta-value--muted">Списание долга</span>
+                </div>
+              </div>
+              <a href="#" class="case-card__link">
+                <span>Посмотреть решение</span>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </article>
+
+            <article class="case-card case-card--hidden" data-idx="6">
+              <div class="case-card__top">
+                <span class="case-card__id-compact">Дело № А56-112345/2024</span>
+                <span class="case-card__status">Долг списан</span>
+              </div>
+              <div class="case-card__meta">
+                <div>
+                  <span class="case-card__meta-label">Сумма долга</span>
+                  <span class="case-card__meta-value">2 480 000 ₽</span>
+                </div>
+                <div>
+                  <span class="case-card__meta-label">Решение суда</span>
+                  <span class="case-card__meta-value case-card__meta-value--muted">Списание долга</span>
+                </div>
+              </div>
+              <a href="#" class="case-card__link">
+                <span>Посмотреть решение</span>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </article>
+
+            <article class="case-card case-card--hidden" data-idx="7">
+              <div class="case-card__top">
+                <span class="case-card__id-compact">Дело № А45-556789/2023</span>
+                <span class="case-card__status">Долг списан</span>
+              </div>
+              <div class="case-card__meta">
+                <div>
+                  <span class="case-card__meta-label">Сумма долга</span>
+                  <span class="case-card__meta-value">1 720 000 ₽</span>
+                </div>
+                <div>
+                  <span class="case-card__meta-label">Решение суда</span>
+                  <span class="case-card__meta-value case-card__meta-value--muted">Списание долга</span>
+                </div>
+              </div>
+              <a href="#" class="case-card__link">
+                <span>Посмотреть решение</span>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </article>
+
+            <article class="case-card case-card--hidden" data-idx="8">
+              <div class="case-card__top">
+                <span class="case-card__id-compact">Дело № А41-223344/2023</span>
+                <span class="case-card__status">Долг списан</span>
+              </div>
+              <div class="case-card__meta">
+                <div>
+                  <span class="case-card__meta-label">Сумма долга</span>
+                  <span class="case-card__meta-value">5 050 000 ₽</span>
+                </div>
+                <div>
+                  <span class="case-card__meta-label">Решение суда</span>
+                  <span class="case-card__meta-value case-card__meta-value--muted">Списание долга</span>
+                </div>
+              </div>
+              <a href="#" class="case-card__link">
+                <span>Посмотреть решение</span>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </article>
+
+            <article class="case-card case-card--hidden" data-idx="9">
+              <div class="case-card__top">
+                <span class="case-card__id-compact">Дело № А40-667788/2024</span>
+                <span class="case-card__status">Долг списан</span>
+              </div>
+              <div class="case-card__meta">
+                <div>
+                  <span class="case-card__meta-label">Сумма долга</span>
+                  <span class="case-card__meta-value">2 140 000 ₽</span>
+                </div>
+                <div>
+                  <span class="case-card__meta-label">Решение суда</span>
+                  <span class="case-card__meta-value case-card__meta-value--muted">Списание долга</span>
+                </div>
+              </div>
+              <a href="#" class="case-card__link">
+                <span>Посмотреть решение</span>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </article>
+
+            <article class="case-card case-card--hidden" data-idx="10">
+              <div class="case-card__top">
+                <span class="case-card__id-compact">Дело № А56-998877/2024</span>
+                <span class="case-card__status">Долг списан</span>
+              </div>
+              <div class="case-card__meta">
+                <div>
+                  <span class="case-card__meta-label">Сумма долга</span>
+                  <span class="case-card__meta-value">3 680 000 ₽</span>
+                </div>
+                <div>
+                  <span class="case-card__meta-label">Решение суда</span>
+                  <span class="case-card__meta-value case-card__meta-value--muted">Списание долга</span>
+                </div>
+              </div>
+              <a href="#" class="case-card__link">
+                <span>Посмотреть решение</span>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </article>
+
+            <article class="case-card case-card--hidden" data-idx="11">
+              <div class="case-card__top">
+                <span class="case-card__id-compact">Дело № А45-445566/2023</span>
+                <span class="case-card__status">Долг списан</span>
+              </div>
+              <div class="case-card__meta">
+                <div>
+                  <span class="case-card__meta-label">Сумма долга</span>
+                  <span class="case-card__meta-value">1 560 000 ₽</span>
+                </div>
+                <div>
+                  <span class="case-card__meta-label">Решение суда</span>
+                  <span class="case-card__meta-value case-card__meta-value--muted">Списание долга</span>
+                </div>
+              </div>
+              <a href="#" class="case-card__link">
+                <span>Посмотреть решение</span>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </article>
+
+            <article class="case-card case-card--hidden" data-idx="12">
+              <div class="case-card__top">
+                <span class="case-card__id-compact">Дело № А41-110022/2023</span>
+                <span class="case-card__status">Долг списан</span>
+              </div>
+              <div class="case-card__meta">
+                <div>
+                  <span class="case-card__meta-label">Сумма долга</span>
+                  <span class="case-card__meta-value">4 890 000 ₽</span>
+                </div>
+                <div>
+                  <span class="case-card__meta-label">Решение суда</span>
+                  <span class="case-card__meta-value case-card__meta-value--muted">Списание долга</span>
+                </div>
+              </div>
+              <a href="#" class="case-card__link">
+                <span>Посмотреть решение</span>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </article>
+          </div>
+
+          <div class="cases__more-wrap">
+            <button class="cases__more" id="casesMore" type="button">
+              <span class="cases__more-label">БОЛЬШЕ ДЕЛ</span>
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cases__signature">
+        <span class="cases__signature-left">ВАШИ ДОЛГИ</span>
+        <img src="assets/logo.svg" alt="Ликвидатор" class="cases__signature-logo" onerror="this.style.display='none'"/>
+        <span class="cases__signature-right">НАШЕ РЕШЕНИЕ</span>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
