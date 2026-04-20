@@ -73,8 +73,8 @@
 
 .loader__logo,
 .loader__logo-fallback {
-  width: 160px;
-  height: 160px;
+  width: 96px;
+  height: 96px;
   flex-shrink: 0;
   display: block;
   object-fit: contain;
@@ -93,27 +93,33 @@
 }
 
 .loader__wordmark {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .loader__title {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 700;
-  font-size: 72px;
+  font-size: 56px;
   line-height: 1;
   letter-spacing: 0.08em;
   color: #2a2a24;
+  display: block;
+  white-space: nowrap;
 }
 
 .loader__subtitle {
   font-family: 'Manrope', sans-serif;
   font-weight: 500;
   font-size: 12px;
-  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: #6d6d63;
+  display: block;
+  width: 100%;
+  text-align: justify;
+  text-align-last: justify;
+  white-space: nowrap;
 }
 
 .loader__center {

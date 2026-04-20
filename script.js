@@ -7,6 +7,25 @@
 
   document.body.style.overflow = 'hidden';
 
+  const fitSubtitle = () => {
+    const title = loader.querySelector('.loader__title');
+    const subtitle = loader.querySelector('.loader__subtitle');
+    if (!title || !subtitle) return;
+    subtitle.style.letterSpacing = '0';
+    const target = title.getBoundingClientRect().width;
+    const current = subtitle.getBoundingClientRect().width;
+    const text = subtitle.textContent || '';
+    const gaps = Math.max(1, text.length - 1);
+    const extra = Math.max(0, (target - current) / gaps);
+    subtitle.style.letterSpacing = extra + 'px';
+  };
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(fitSubtitle);
+  } else {
+    setTimeout(fitSubtitle, 100);
+  }
+  window.addEventListener('resize', fitSubtitle);
+
   setTimeout(() => {
     loader.classList.add('is-hidden');
     document.body.style.overflow = '';
