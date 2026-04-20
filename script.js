@@ -145,15 +145,16 @@ if (lion) {
     stack.classList.add('is-touched');
   }
 
-  // Wheel / trackpad — gesture-end debounce (one advance per scroll gesture)
+  // Wheel / trackpad — one advance per gesture (ignores inertia + strong scrolls)
   let wheelLock = false;
   let wheelGestureTimer = null;
   stack.addEventListener('wheel', (e) => {
     e.preventDefault();
     if (Math.abs(e.deltaY) < 4) return;
-    // reset gesture timer — lock stays until no wheel events for 180ms
+    // each wheel event resets the end-of-gesture timer — lock stays engaged
+    // until wheel events have stopped arriving for 220ms (covers trackpad inertia)
     clearTimeout(wheelGestureTimer);
-    wheelGestureTimer = setTimeout(() => { wheelLock = false; }, 180);
+    wheelGestureTimer = setTimeout(() => { wheelLock = false; }, 220);
     if (wheelLock) return;
     wheelLock = true;
     if (e.deltaY > 0) next();
@@ -206,4 +207,28 @@ if (lion) {
   });
 
   render();
+})();
+
+// Services: scroll animation — circles fill khaki, lines draw top→bottom
+(function initServicesAnim() {
+  const stepLists = document.querySelectorAll('.services__steps');
+  if (!stepLists.length) return;
+
+  stepLists.forEach(list => list.classList.add('services__steps--animated'));
+
+  const steps = [...document.querySelectorAll('.services__step')];
+
+  function checkSteps() {
+    const vh = window.innerHeight;
+    steps.forEach(step => {
+      if (step.classList.contains('is-active')) return;
+      const rect = step.getBoundingClientRect();
+      if (rect.top < vh * 0.85 && rect.bottom > 0) {
+        step.classList.add('is-active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', checkSteps, { passive: true });
+  checkSteps();
 })();
