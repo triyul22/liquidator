@@ -75,8 +75,11 @@ if (lion) {
   }
 
   function render() {
+    const halfN = N / 2;
     tabs.forEach((t, i) => {
-      const rel = i - active;
+      // normalize to [0, N) then fold to (-halfN, halfN]
+      let rel = ((i - active) % N + N) % N;
+      if (rel > halfN) rel -= N;
       t.classList.toggle('is-active', rel === 0);
 
       let y, scale, opacity, zi, pe;
@@ -124,14 +127,15 @@ if (lion) {
   }
 
   function setActive(idx) {
-    if (idx < 0 || idx >= N || idx === active) return;
+    idx = ((idx % N) + N) % N;
+    if (idx === active) return;
     active = idx;
     markTouched();
     render();
   }
 
-  function next() { if (active < N - 1) setActive(active + 1); }
-  function prev() { if (active > 0) setActive(active - 1); }
+  function next() { setActive(active + 1); }
+  function prev() { setActive(active - 1); }
 
   let touched = false;
   function markTouched() {
@@ -141,16 +145,19 @@ if (lion) {
     stack.classList.add('is-touched');
   }
 
-  // Wheel / trackpad — throttled
+  // Wheel / trackpad — gesture-end debounce (one advance per scroll gesture)
   let wheelLock = false;
+  let wheelGestureTimer = null;
   stack.addEventListener('wheel', (e) => {
     e.preventDefault();
-    if (wheelLock) return;
     if (Math.abs(e.deltaY) < 4) return;
+    // reset gesture timer — lock stays until no wheel events for 180ms
+    clearTimeout(wheelGestureTimer);
+    wheelGestureTimer = setTimeout(() => { wheelLock = false; }, 180);
+    if (wheelLock) return;
     wheelLock = true;
     if (e.deltaY > 0) next();
     else prev();
-    setTimeout(() => { wheelLock = false; }, 420);
   }, { passive: false });
 
   // Touch swipe (vertical)

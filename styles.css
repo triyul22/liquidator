@@ -93,6 +93,7 @@
 .loader__text {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: clamp(5px, 0.4vw, 8px);
   min-width: 0;
 }
@@ -496,7 +497,7 @@ a {
 /* ============ CASES ============ */
 .cases {
   position: relative;
-  padding: 140px 0 120px;
+  padding: 50px 0 24px;
   overflow: hidden;
   isolation: isolate;
   background: #e8e4db;
@@ -549,12 +550,13 @@ a {
 }
 
 .cases__subtitle {
-  margin-top: 18px;
-  font-family: 'Onest', var(--font-body);
-  font-weight: 400;
-  font-size: 17px;
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(13px, 1vw, 15px);
   line-height: 1.5;
-  letter-spacing: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: rgba(26, 29, 34, 0.72);
   max-width: 520px;
 }
@@ -573,7 +575,7 @@ a {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 18px 24px;
+  padding: 12px 24px;
   border-radius: 20px;
   background: linear-gradient(180deg, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.48) 100%);
   border: 1px solid rgba(26, 29, 34, 0.08);
@@ -612,11 +614,11 @@ a {
 .feature__title {
   font-family: 'Onest', var(--font-display);
   font-weight: 700;
-  font-size: 18px;
-  letter-spacing: -0.005em;
+  font-size: 21px;
+  letter-spacing: -0.01em;
   color: #1a1d22;
-  margin: 0 0 5px;
-  line-height: 1.25;
+  margin: 0 0 4px;
+  line-height: 1.2;
 }
 
 .feature__desc {
@@ -821,7 +823,6 @@ a {
   flex-direction: column;
   align-items: flex-end;
   height: 100%;
-  padding-top: 200px;
 }
 
 .cases__right-head {
@@ -843,10 +844,11 @@ a {
 
 .cases__right-sub {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 15px;
+  font-weight: 500;
+  font-size: clamp(13px, 1vw, 15px);
   line-height: 1.5;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: rgba(26, 29, 34, 0.72);
   margin: 0;
 }
@@ -1179,23 +1181,23 @@ a {
 
 /* ---- Signature ---- */
 .cases__signature {
-  margin-top: 100px;
+  margin-top: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 34px;
+  gap: 44px;
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 22px;
-  letter-spacing: 0.22em;
-  color: rgba(26, 29, 34, 0.88);
+  font-weight: 700;
+  font-size: 34px;
+  letter-spacing: 0.18em;
+  color: rgba(26, 29, 34, 0.92);
   text-transform: uppercase;
 }
 
 .cases__signature-logo {
-  height: 56px;
+  height: 84px;
   width: auto;
-  opacity: 0.92;
+  opacity: 0.95;
 }
 
 /* ============ RESPONSIVE ============ */
