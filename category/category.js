@@ -12,7 +12,7 @@
     .then(r => r.json())
     .then(data => {
       const list = (data.articles || [])
-        .filter(a => a.cat === cat)
+        .filter(a => cat === 'all' ? true : a.cat === cat)
         .sort((a, b) => (b.dateIso || '').localeCompare(a.dateIso || ''));
 
       if (!list.length) {

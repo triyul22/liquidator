@@ -335,6 +335,26 @@ if (lion) {
   setTimeout(equalizeRows, 600);
 })();
 
+// Cookie consent banner
+(function initCookieBanner() {
+  const banner = document.getElementById('cookieBanner');
+  if (!banner) return;
+  const KEY = 'cookie_consent_v1';
+  try {
+    if (localStorage.getItem(KEY) === 'accepted') return;
+  } catch (e) {}
+  banner.hidden = false;
+  setTimeout(() => banner.classList.add('is-visible'), 600);
+  const btn = document.getElementById('cookieAccept');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      try { localStorage.setItem(KEY, 'accepted'); } catch (e) {}
+      banner.classList.remove('is-visible');
+      setTimeout(() => { banner.hidden = true; }, 350);
+    });
+  }
+})();
+
 // Knowledge base: horizontal infinite carousel with category filters
 (function initKnowledge() {
   const track = document.getElementById('knowledgeTrack');
@@ -378,6 +398,24 @@ if (lion) {
     g: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 4h8l4 4v12H6V4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 4v4h4M9 13h6M9 17h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
     h: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>'
   };
+
+  function buildSeeAllCard() {
+    const el = document.createElement('a');
+    el.className = 'k-card k-card--all';
+    el.href = 'category/fiz.html';
+    el.innerHTML = `
+      <div class="k-card__content k-card--all__content">
+        <span class="k-card__tag">Все материалы</span>
+        <h3 class="k-card__title">Смотреть все статьи</h3>
+        <p class="k-card__desc">Полная подборка экспертных материалов о банкротстве, списании долгов и защите прав.</p>
+        <span class="k-card--all__cta">
+          <span>Перейти</span>
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+    `;
+    return el;
+  }
 
   function buildCard(a) {
     const el = document.createElement(a.url ? 'a' : 'article');
