@@ -27,6 +27,9 @@
   } else {
     window.addEventListener('load', hideWithDelay);
   }
+  // Safety fallback: даже если load не сработал (медленное видео/сеть на мобилке),
+  // принудительно прячем loader через 4.5 секунды.
+  setTimeout(() => { if (!loader.classList.contains('is-hidden')) hideLoader(); }, 4500);
 })();
 
 const header = document.getElementById('header');
@@ -90,7 +93,7 @@ if (lion) {
   });
 }
 
-// Cases: 3D vertical stack carousel (Safari-tabs style)
+// Cases: 3D vertical stack carousel (Safari-tabs style) / horizontal scroll on mobile
 (function(){
   const stack = document.getElementById('casesStack');
   if (!stack) return;
@@ -99,6 +102,31 @@ if (lion) {
   const dotsEl = document.getElementById('casesDots');
   const hintEl = document.getElementById('casesHint');
   const N = tabs.length;
+
+  const mq = window.matchMedia('(max-width: 900px)');
+  const applyMobileMode = (isMobile) => {
+    stack.classList.toggle('is-mobile-scroll', isMobile);
+    if (isMobile) {
+      tabs.forEach(t => {
+        t.style.removeProperty('--y');
+        t.style.removeProperty('--s');
+        t.style.removeProperty('--o');
+        t.style.zIndex = '';
+        t.style.pointerEvents = 'auto';
+      });
+      if (hintEl) hintEl.style.display = 'none';
+      if (dotsEl) dotsEl.style.display = 'none';
+    } else {
+      if (hintEl) hintEl.style.display = '';
+      if (dotsEl) dotsEl.style.display = '';
+    }
+  };
+  applyMobileMode(mq.matches);
+  mq.addEventListener('change', (e) => {
+    applyMobileMode(e.matches);
+    if (!e.matches) location.reload();
+  });
+  if (mq.matches) return; // Bail out of 3D-stack behavior on mobile
   let active = Math.max(0, tabs.findIndex(t => t.classList.contains('is-active')));
   if (active < 0) active = 0;
 
@@ -465,14 +493,15 @@ if (lion) {
     }
     track.innerHTML = '';
     const N = activeCards.length;
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
     const visible = Math.min(getVisibleCount(), N);
-    // Render 3 copies for infinite loop
-    const copies = N >= visible ? 3 : 1;
+    // Render 3 copies for infinite loop on desktop; single copy on mobile (native scroll)
+    const copies = (!isMobile && N >= visible) ? 3 : 1;
     for (let c = 0; c < copies; c++) {
       activeCards.forEach(a => track.appendChild(buildCard(a)));
     }
-    index = N >= visible ? N : 0; // start in middle copy
-    applyTransform(false);
+    index = (!isMobile && N >= visible) ? N : 0;
+    if (!isMobile) applyTransform(false);
   }
 
   function getCardStep() {
@@ -563,4 +592,152 @@ if (lion) {
 
   render();
   } // end initSlider
+})();
+
+/* ============ ЛИД-ФОРМА ============ */
+(function () {
+  const form = document.getElementById('leadForm');
+  if (!form) return;
+  const nameEl = document.getElementById('leadName');
+  const phoneEl = document.getElementById('leadPhone');
+  const consentEl = document.getElementById('leadConsent');
+  const submitEl = document.getElementById('leadSubmit');
+  const statusEl = document.getElementById('leadStatus');
+
+  const MASK_EMPTY = '+7 (___) ___-__-__';
+
+  const formatPhone = (digits) => {
+    // digits: только те цифры, что ввел юзер (до 10)
+    const d = digits.slice(0, 10);
+    let out = '+7 (';
+    out += (d.slice(0, 3) + '___').slice(0, 3);
+    out += ') ';
+    out += (d.slice(3, 6) + '___').slice(0, 3);
+    out += '-';
+    out += (d.slice(6, 8) + '__').slice(0, 2);
+    out += '-';
+    out += (d.slice(8, 10) + '__').slice(0, 2);
+    return out;
+  };
+
+  const extractDigits = (value) => {
+    let s = value.replace(/\D/g, '');
+    if (s.startsWith('8')) s = '7' + s.slice(1);
+    if (s.startsWith('7')) s = s.slice(1);
+    return s.slice(0, 10);
+  };
+
+  const getPhoneDigits = () => extractDigits(phoneEl.value);
+
+  const showMask = () => {
+    const d = getPhoneDigits();
+    phoneEl.value = formatPhone(d);
+    // Поставить курсор после последней введённой цифры
+    const pos = caretPosAfter(d.length);
+    requestAnimationFrame(() => phoneEl.setSelectionRange(pos, pos));
+  };
+
+  const caretPosAfter = (n) => {
+    // Позиции цифр в маске "+7 (XXX) XXX-XX-XX"
+    const map = [4, 5, 6, 9, 10, 11, 13, 14, 16, 17];
+    if (n <= 0) return 4;
+    if (n >= 10) return 18;
+    return map[n - 1] + 1;
+  };
+
+  const validate = () => {
+    return nameEl.value.trim().length > 0
+      && getPhoneDigits().length === 10
+      && consentEl.checked;
+  };
+
+  const getError = () => {
+    if (nameEl.value.trim().length === 0) return 'Введите имя';
+    if (getPhoneDigits().length !== 10) return 'Введите корректный номер телефона';
+    if (!consentEl.checked) return 'Подтвердите согласие на обработку данных';
+    return '';
+  };
+
+  const clearError = () => {
+    if (statusEl.classList.contains('is-error')) {
+      statusEl.textContent = '';
+      statusEl.className = 'contacts__status';
+    }
+  };
+
+  phoneEl.addEventListener('focus', () => {
+    if (!phoneEl.value) phoneEl.value = MASK_EMPTY;
+    requestAnimationFrame(() => {
+      const pos = caretPosAfter(getPhoneDigits().length);
+      phoneEl.setSelectionRange(pos, pos);
+    });
+  });
+  phoneEl.addEventListener('blur', () => {
+    if (getPhoneDigits().length === 0) phoneEl.value = '';
+    clearError();
+  });
+  phoneEl.addEventListener('input', () => {
+    showMask();
+    clearError();
+  });
+  phoneEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Backspace') {
+      e.preventDefault();
+      const d = getPhoneDigits();
+      phoneEl.value = formatPhone(d.slice(0, -1));
+      const pos = caretPosAfter(Math.max(0, d.length - 1));
+      phoneEl.setSelectionRange(pos, pos);
+      clearError();
+    }
+  });
+
+  nameEl.addEventListener('input', clearError);
+  consentEl.addEventListener('change', clearError);
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!validate()) {
+      statusEl.textContent = getError();
+      statusEl.className = 'contacts__status is-error';
+      return;
+    }
+    const name = nameEl.value.trim();
+    const phone = formatPhone(getPhoneDigits());
+    const subject = encodeURIComponent('Заявка с сайта Ликвидатор');
+    const body = encodeURIComponent(`Имя: ${name}\nТелефон: ${phone}`);
+    statusEl.textContent = 'Открываем почтовый клиент...';
+    statusEl.className = 'contacts__status is-success';
+    window.location.href = `mailto:lead@pravo.shop?subject=${subject}&body=${body}`;
+    setTimeout(() => {
+      statusEl.textContent = 'Спасибо! Мы свяжемся с вами в ближайшее время.';
+    }, 800);
+  });
+})();
+
+/* ============ МОДАЛКА ============ */
+(function () {
+  const modal = document.getElementById('contactsModal');
+  if (!modal) return;
+  const triggers = document.querySelectorAll('[data-open-modal="contactsModal"]');
+  const closers = modal.querySelectorAll('[data-close-modal]');
+
+  const open = () => {
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('is-modal-open');
+    setTimeout(() => document.getElementById('leadName')?.focus(), 200);
+  };
+  const close = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('is-modal-open');
+  };
+
+  triggers.forEach(t => t.addEventListener('click', (e) => { e.preventDefault(); open(); }));
+  closers.forEach(c => c.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+  });
+
+  window.__contactsModal = { open, close };
 })();

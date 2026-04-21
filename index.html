@@ -10,7 +10,150 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600&family=Onest:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=11" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style>
+    /* Inline override for business footer — bypasses CSS cache */
+    @media (max-width: 1024px) {
+      .footer__col--business .footer__biz { gap: 0 !important; row-gap: 0 !important; display: block !important; }
+      .footer__col--business .footer__biz li {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        gap: 0 !important;
+        border: none !important;
+        line-height: 1 !important;
+      }
+      .footer__col--business .footer__biz li + li { margin-top: 14px !important; }
+      .hero__content { padding-top: 48vh !important; }
+
+      /* Компактный cookie-баннер на мобиле */
+      .cookie-banner { left: 10px !important; right: 10px !important; bottom: 10px !important; }
+      .cookie-banner__inner {
+        display: grid !important;
+        grid-template-columns: auto 1fr !important;
+        grid-template-areas: "icon title" "desc desc" "actions actions" !important;
+        align-items: center !important;
+        gap: 6px 10px !important;
+        padding: 10px 12px !important;
+        border-radius: 14px !important;
+      }
+      .cookie-banner__icon {
+        grid-area: icon !important;
+        width: 28px !important;
+        height: 28px !important;
+        flex: 0 0 28px !important;
+        border-radius: 8px !important;
+      }
+      .cookie-banner__icon svg { width: 16px !important; height: 16px !important; }
+      .cookie-banner__text {
+        display: contents !important;
+      }
+      .cookie-banner__text strong {
+        grid-area: title !important;
+        font-size: 13px !important;
+        letter-spacing: 0.02em !important;
+        line-height: 1.1 !important;
+        margin: 0 !important;
+      }
+      .cookie-banner__text > span {
+        grid-area: desc !important;
+        font-size: 11px !important;
+        line-height: 1.25 !important;
+        margin: 0 !important;
+      }
+      .cookie-banner__actions {
+        grid-area: actions !important;
+        width: 100% !important;
+        gap: 8px !important;
+        justify-content: space-between !important;
+        margin-top: 2px !important;
+      }
+      .cookie-banner__link {
+        font-size: 10px !important;
+        padding: 6px 10px !important;
+        letter-spacing: 0.08em !important;
+        min-height: 0 !important;
+        height: auto !important;
+      }
+      .cookie-banner__btn {
+        font-size: 11px !important;
+        padding: 8px 16px !important;
+        letter-spacing: 0.08em !important;
+        min-height: 0 !important;
+        height: auto !important;
+        flex: 0 1 auto !important;
+      }
+      .footer__col--business .footer__biz-role {
+        display: block !important;
+        font-size: 13px !important;
+        line-height: 1.15 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        white-space: nowrap !important;
+      }
+      .footer__col--business .footer__biz-role br { display: inline !important; }
+      .footer__col--business .footer__biz-mail {
+        display: block !important;
+        font-size: 12px !important;
+        line-height: 1 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: 0 !important;
+        height: auto !important;
+      }
+      .footer__col--business .footer__col-title {
+        margin: 0 0 4px !important;
+        padding: 0 0 2px !important;
+        min-height: 0 !important;
+      }
+      .footer__bottom {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0 !important;
+        padding: 8px 0 0 !important;
+        margin-top: 8px !important;
+        margin-bottom: 0 !important;
+        text-align: center !important;
+      }
+      .footer__bottom > * { margin: 0 !important; padding: 0 !important; }
+      .footer__copy,
+      .footer__links,
+      .footer__links a,
+      .footer__disclaimer,
+      .footer__disclaimer span {
+        font-size: 9px !important;
+        line-height: 1 !important;
+        color: rgba(255,255,255,0.5) !important;
+      }
+      .footer__links {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 0 6px !important;
+      }
+      .footer__disclaimer {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 4px !important;
+      }
+      .footer__disclaimer svg { width: 9px !important; height: 9px !important; flex-shrink: 0 !important; }
+      .footer__disclaimer br { display: none !important; }
+      .footer { padding-bottom: 8px !important; }
+      .footer__bottom a,
+      .footer__links a,
+      .footer__disclaimer a {
+        min-height: 0 !important;
+        height: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -83,7 +226,7 @@
         Надежная поддержка в списании долгов и взыскании задолженности
       </p>
 
-      <a href="#contacts" class="hero__cta">
+      <a href="#" class="hero__cta" data-open-modal="contactsModal">
         <span>ПОЛУЧИТЬ РЕШЕНИЕ</span>
       </a>
 
@@ -764,7 +907,7 @@
             <span class="services__cta-sub">Обеспечиваем поддержку, защиту и достижение результата.</span>
           </div>
         </div>
-        <a href="#contacts" class="services__cta-btn">
+        <a href="#" class="services__cta-btn" data-open-modal="contactsModal">
           <span>ПОЛУЧИТЬ РЕШЕНИЕ</span>
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -777,25 +920,25 @@
 
   <!-- БАЗА ЗНАНИЙ -->
   <section class="knowledge" id="knowledge">
-    <div class="knowledge__bg" aria-hidden="true">
-      <span class="knowledge__bokeh knowledge__bokeh--small"></span>
-      <span class="knowledge__bokeh knowledge__bokeh--mid"></span>
-      <span class="knowledge__bokeh knowledge__bokeh--large"></span>
-      <span class="knowledge__glow knowledge__glow--center"></span>
-      <svg class="knowledge__waves" viewBox="0 0 1600 400" preserveAspectRatio="none" aria-hidden="true">
+    <div class="category-bg category-bg--section" aria-hidden="true">
+      <span class="category-bg__blob category-bg__blob--1"></span>
+      <span class="category-bg__blob category-bg__blob--2"></span>
+      <span class="category-bg__blob category-bg__blob--3"></span>
+      <span class="category-bg__blob category-bg__blob--4"></span>
+      <span class="category-bg__bokeh"></span>
+      <svg class="category-bg__waves" viewBox="0 0 1600 400" preserveAspectRatio="none">
         <defs>
-          <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="rgba(230,190,90,0)"/>
-            <stop offset="30%" stop-color="rgba(230,190,90,0.55)"/>
-            <stop offset="70%" stop-color="rgba(230,190,90,0.55)"/>
-            <stop offset="100%" stop-color="rgba(230,190,90,0)"/>
+          <linearGradient id="knowWaveGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="rgba(75,83,32,0)"/>
+            <stop offset="30%" stop-color="rgba(75,83,32,0.35)"/>
+            <stop offset="70%" stop-color="rgba(75,83,32,0.35)"/>
+            <stop offset="100%" stop-color="rgba(75,83,32,0)"/>
           </linearGradient>
         </defs>
-        <path class="knowledge__wave knowledge__wave--1" stroke="url(#waveGrad)" stroke-width="1" fill="none" d="M0 280 C 300 240, 500 340, 800 280 S 1300 220, 1600 300"/>
-        <path class="knowledge__wave knowledge__wave--2" stroke="url(#waveGrad)" stroke-width="1" fill="none" d="M0 320 C 350 260, 600 360, 900 310 S 1350 260, 1600 340"/>
-        <path class="knowledge__wave knowledge__wave--3" stroke="url(#waveGrad)" stroke-width="0.8" fill="none" d="M0 200 C 280 160, 520 260, 820 210 S 1280 150, 1600 230"/>
+        <path class="category-bg__wave category-bg__wave--1" stroke="url(#knowWaveGrad)" stroke-width="1" fill="none" d="M0 280 C 300 240, 500 340, 800 280 S 1300 220, 1600 300"/>
+        <path class="category-bg__wave category-bg__wave--2" stroke="url(#knowWaveGrad)" stroke-width="1" fill="none" d="M0 320 C 350 260, 600 360, 900 310 S 1350 260, 1600 340"/>
       </svg>
-      <span class="knowledge__grain"></span>
+      <span class="category-bg__grain"></span>
     </div>
 
     <div class="knowledge__container">
@@ -856,6 +999,45 @@
       </template>
     </div>
   </section>
+
+  <!-- МОДАЛЬНОЕ ОКНО ЗАЯВКИ -->
+  <div class="contacts-modal" id="contactsModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle">
+    <div class="contacts-modal__backdrop" data-close-modal></div>
+    <div class="contacts-modal__dialog">
+      <div class="contacts__card">
+        <button class="contacts-modal__close" type="button" aria-label="Закрыть" data-close-modal>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <img class="contacts__lion" src="assets/logo.svg" alt="" aria-hidden="true"/>
+        <form class="contacts__form" id="leadForm" novalidate>
+          <h2 class="contacts__title">ЗАПОЛНИТЬ ФОРМУ</h2>
+          <p class="contacts__subtitle">Начнем с заявки</p>
+
+          <div class="contacts__field">
+            <input class="contacts__input" type="text" name="name" id="leadName" placeholder="Ваше имя" autocomplete="name" required/>
+          </div>
+
+          <div class="contacts__field">
+            <input class="contacts__input" type="tel" name="phone" id="leadPhone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" required/>
+          </div>
+
+          <label class="contacts__consent">
+            <input type="checkbox" id="leadConsent" class="contacts__consent-input"/>
+            <span class="contacts__checkmark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-11" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="contacts__consent-text">Согласен на обработку персональных данных</span>
+          </label>
+
+          <button class="contacts__submit" id="leadSubmit" type="submit">
+            <span>ОСТАВИТЬ ЗАЯВКУ</span>
+          </button>
+
+          <p class="contacts__status" id="leadStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <!-- ФУТЕР -->
   <footer class="footer" id="footer">
@@ -986,7 +1168,7 @@
         </div>
 
         <!-- Для бизнеса -->
-        <div class="footer__col">
+        <div class="footer__col footer__col--business">
           <h4 class="footer__col-title">ДЛЯ БИЗНЕСА</h4>
           <ul class="footer__list footer__biz">
             <li>
@@ -1045,6 +1227,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=11"></script>
 </body>
 </html>
