@@ -2,7 +2,8 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0e14"/>
   <title>ЛИКВИДАТОР - списание долгов и взыскание задолженности</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,6 +29,10 @@
 
   <header class="header" id="header">
     <div class="header__inner">
+      <button class="header__burger" id="headerBurger" type="button" aria-label="Меню" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
       <nav class="header__nav header__nav--left">
         <a href="#services">УСЛУГИ</a>
         <a href="#cases">КЕЙСЫ</a>
@@ -42,6 +47,13 @@
         <a href="#knowledge">БАЗА ЗНАНИЙ</a>
         <a href="#footer">КОНТАКТЫ</a>
       </nav>
+    </div>
+
+    <div class="header__mobile-menu" id="headerMobileMenu" aria-hidden="true">
+      <a href="#services" data-close>УСЛУГИ</a>
+      <a href="#cases" data-close>КЕЙСЫ</a>
+      <a href="#knowledge" data-close>БАЗА ЗНАНИЙ</a>
+      <a href="#footer" data-close>КОНТАКТЫ</a>
     </div>
   </header>
 

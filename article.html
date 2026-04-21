@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{TITLE}} - ЛИКВИДАТОР</title>
+  <meta name="description" content="{{DESCRIPTION}}" />
+  <link rel="canonical" href="{{CANONICAL}}" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{TITLE}}" />
+  <meta property="og:description" content="{{DESCRIPTION}}" />
+  <meta property="og:image" content="{{OG_IMAGE}}" />
+  <meta property="og:url" content="{{CANONICAL}}" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&family=Onest:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{BASE}}styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{TITLE}}",
+    "description": "{{DESCRIPTION}}",
+    "image": "{{OG_IMAGE}}",
+    "datePublished": "{{DATE_ISO}}",
+    "dateModified": "{{DATE_ISO}}",
+    "author": {
+      "@type": "Person",
+      "name": "{{AUTHOR_NAME}}",
+      "jobTitle": "{{AUTHOR_ROLE}}",
+      "worksFor": {"@type": "Organization", "name": "ЛИКВИДАТОР"}
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ЛИКВИДАТОР",
+      "logo": {"@type": "ImageObject", "url": "{{BASE}}assets/logo.svg"}
+    },
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "{{CANONICAL}}"}
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Главная", "item": "{{BASE}}index.html"},
+      {"@type": "ListItem", "position": 2, "name": "{{CAT_LABEL}}", "item": "{{BASE}}category/{{CAT}}.html"},
+      {"@type": "ListItem", "position": 3, "name": "{{TITLE}}"}
+    ]
+  }
+  </script>
+
+  {{FAQ_SCHEMA}}
+</head>
+<body class="article-page">
+
+  <header class="header" id="header">
+    <div class="header__inner">
+      <nav class="header__nav header__nav--left">
+        <a href="{{BASE}}index.html#services">УСЛУГИ</a>
+        <a href="{{BASE}}index.html#cases">КЕЙСЫ</a>
+      </nav>
+      <a href="{{BASE}}index.html" class="header__brand">
+        <img src="{{BASE}}assets/logo.svg" alt="" class="header__logo" onerror="this.style.display='none'"/>
+        <span class="header__brand-text">ЛИКВИДАТОР</span>
+      </a>
+      <nav class="header__nav header__nav--right">
+        <a href="{{BASE}}index.html#knowledge">БАЗА ЗНАНИЙ</a>
+        <a href="{{BASE}}index.html#footer">КОНТАКТЫ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="article">
+    <div class="article__container">
+      <nav class="article__breadcrumbs" aria-label="Хлебные крошки">
+        <a href="{{BASE}}index.html">Главная</a>
+        <span class="article__bc-sep">/</span>
+        <a href="{{BASE}}category/{{CAT}}.html">{{CAT_LABEL}}</a>
+        <span class="article__bc-sep">/</span>
+        <span class="article__bc-current">{{TITLE}}</span>
+      </nav>
+
+      <div class="article__head">
+        <span class="article__tag">{{CAT_LABEL}}</span>
+        <h1 class="article__title">{{TITLE}}</h1>
+        <p class="article__lead">{{DESCRIPTION}}</p>
+        <div class="article__meta">
+          <span class="article__meta-item">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            {{DATE}}
+          </span>
+          <span class="article__meta-item">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            {{READ}}
+          </span>
+        </div>
+      </div>
+
+      <div class="article__cover" style="background-image:url('{{BASE}}{{IMG}}')"></div>
+
+      <article class="article__body">
+        {{CONTENT}}
+      </article>
+
+      {{FAQ_BLOCK}}
+
+      <aside class="article__author">
+        <div class="article__author-avatar" aria-hidden="true">{{AUTHOR_INITIALS}}</div>
+        <div class="article__author-body">
+          <div class="article__author-name">{{AUTHOR_NAME}}</div>
+          <div class="article__author-role">{{AUTHOR_ROLE}}</div>
+          <p class="article__author-bio">{{AUTHOR_BIO}}</p>
+        </div>
+      </aside>
+
+      <div class="article__disclaimer">
+        Материал носит информационный характер и не является юридической консультацией. Для решения конкретной ситуации обратитесь к специалисту ЛИКВИДАТОР: оставьте заявку или позвоните по телефону 8 800 ХХХ-ХХ-ХХ.
+      </div>
+
+      <a href="{{BASE}}index.html#contacts" class="article__cta">
+        <span>ПОЛУЧИТЬ КОНСУЛЬТАЦИЮ</span>
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+
+      <section class="article__related">
+        <h2 class="article__related-title">Читайте также</h2>
+        <div class="article__related-grid" id="relatedGrid" data-cat="{{CAT}}" data-slug="{{SLUG}}" data-base="{{BASE}}"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="article-footer">
+    <div class="article-footer__inner">
+      <div class="article-footer__brand">
+        <img src="{{BASE}}assets/logo.svg" alt="" onerror="this.style.display='none'"/>
+        <span>ЛИКВИДАТОР</span>
+      </div>
+      <p class="article-footer__law">Федеральный закон «О несостоятельности» от 26.10.2002 № 127-ФЗ</p>
+      <p class="article-footer__copy">© ООО «ЛИКВИДАТОР». Реальные дела. Реальные результаты.</p>
+    </div>
+  </footer>
+
+  <script>
+  (function loadRelated() {
+    const grid = document.getElementById('relatedGrid');
+    if (!grid) return;
+    const base = grid.dataset.base || '';
+    const cat = grid.dataset.cat;
+    const slug = grid.dataset.slug;
+    fetch(base + 'articles.json', { cache: 'no-cache' })
+      .then(r => r.json())
+      .then(data => {
+        const same = data.articles.filter(a => a.cat === cat && a.slug !== slug).slice(0, 3);
+        const pool = same.length >= 3 ? same : same.concat(data.articles.filter(a => a.slug !== slug && a.cat !== cat).slice(0, 3 - same.length));
+        grid.innerHTML = pool.map(a => `
+          <a class="related-card" href="${base}${a.url}" style="background-image:linear-gradient(180deg, rgba(10,13,18,0.1) 0%, rgba(10,13,18,0.85) 100%), url('${base}${a.img}')">
+            <span class="related-card__tag">${a.catLabel}</span>
+            <h3 class="related-card__title">${a.title}</h3>
+            <div class="related-card__meta">${a.date} - ${a.read}</div>
+          </a>
+        `).join('');
+      })
+      .catch(() => { grid.style.display = 'none'; });
+  })();
+  </script>
+
+</body>
+</html>

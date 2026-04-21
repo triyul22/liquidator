@@ -45,6 +45,34 @@ const onScroll = () => {
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
+// Mobile burger menu
+(function initBurger(){
+  const burger = document.getElementById('headerBurger');
+  const menu = document.getElementById('headerMobileMenu');
+  if (!burger || !menu || !header) return;
+  const close = () => {
+    header.classList.remove('is-menu-open');
+    burger.setAttribute('aria-expanded', 'false');
+    menu.setAttribute('aria-hidden', 'true');
+  };
+  const toggle = () => {
+    const open = !header.classList.contains('is-menu-open');
+    header.classList.toggle('is-menu-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    menu.setAttribute('aria-hidden', String(!open));
+  };
+  burger.addEventListener('click', toggle);
+  menu.querySelectorAll('a[data-close]').forEach(a => a.addEventListener('click', close));
+  document.addEventListener('click', (e) => {
+    if (!header.classList.contains('is-menu-open')) return;
+    if (e.target.closest('.header')) return;
+    close();
+  });
+  window.addEventListener('scroll', () => {
+    if (header.classList.contains('is-menu-open')) close();
+  }, { passive: true });
+})();
+
 const lion = document.getElementById('heroLion');
 if (lion) {
   let frozen = false;
@@ -161,6 +189,8 @@ if (lion) {
   let lastActionTime = 0;
   let lastDelta = 0;
   stack.addEventListener('wheel', (e) => {
+    // On narrow viewports: let the page scroll normally, use swipe instead
+    if (window.matchMedia('(max-width: 900px)').matches) return;
     e.preventDefault();
     const dy = e.deltaY;
     if (Math.abs(dy) < 4) return;
@@ -308,13 +338,28 @@ if (lion) {
 // Knowledge base: horizontal infinite carousel with category filters
 (function initKnowledge() {
   const track = document.getElementById('knowledgeTrack');
-  const tpl = document.getElementById('knowledgeData');
-  const dataScript = tpl && tpl.content ? tpl.content.querySelector('script') : null;
-  if (!track || !dataScript) return;
+  if (!track) return;
 
-  let articles;
-  try { articles = JSON.parse(dataScript.textContent); } catch (e) { return; }
-  if (!articles.length) return;
+  function loadArticles() {
+    return fetch('articles.json', { cache: 'no-cache' })
+      .then(r => r.ok ? r.json() : null)
+      .then(data => (data && data.articles) ? data.articles : null)
+      .catch(() => null)
+      .then(list => {
+        if (list) return list;
+        const tpl = document.getElementById('knowledgeData');
+        const dataScript = tpl && tpl.content ? tpl.content.querySelector('script') : null;
+        if (!dataScript) return [];
+        try { return JSON.parse(dataScript.textContent) || []; } catch (e) { return []; }
+      });
+  }
+
+  loadArticles().then(articles => {
+    if (!articles || !articles.length) return;
+    initSlider(articles);
+  });
+
+  function initSlider(articles) {
 
   const viewport = track.parentElement;
   const slider = viewport.parentElement;
@@ -335,10 +380,11 @@ if (lion) {
   };
 
   function buildCard(a) {
-    const el = document.createElement('article');
+    const el = document.createElement(a.url ? 'a' : 'article');
     el.className = 'k-card';
     el.dataset.cat = a.cat;
     el.dataset.tone = a.tone || 'a';
+    if (a.url) { el.href = a.url; el.style.textDecoration = 'none'; el.style.color = 'inherit'; }
     const img = a.img || '';
     el.innerHTML = `
       <div class="k-card__content">
@@ -478,4 +524,5 @@ if (lion) {
   });
 
   render();
+  } // end initSlider
 })();
