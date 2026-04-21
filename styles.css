@@ -664,6 +664,7 @@ a {
   text-transform: uppercase;
   color: rgba(26, 29, 34, 0.72);
   max-width: 520px;
+  text-align: left;
 }
 
 .features {
@@ -951,14 +952,13 @@ a {
 .cases__right-sub {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(12px, 0.95vw, 14px);
+  font-size: clamp(13px, 1vw, 15px);
   line-height: 1.5;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(26, 29, 34, 0.72);
   margin: 0;
-  text-align: center;
-  white-space: nowrap;
+  text-align: left;
 }
 
 /* ---- 3D vertical stack carousel ---- */
