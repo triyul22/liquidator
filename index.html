@@ -40,7 +40,7 @@
 
       <nav class="header__nav header__nav--right">
         <a href="#knowledge">БАЗА ЗНАНИЙ</a>
-        <a href="#contacts">КОНТАКТЫ</a>
+        <a href="#footer">КОНТАКТЫ</a>
       </nav>
     </div>
   </header>
@@ -762,6 +762,257 @@
 
     </div>
   </section>
+
+  <!-- БАЗА ЗНАНИЙ -->
+  <section class="knowledge" id="knowledge">
+    <div class="knowledge__bg" aria-hidden="true">
+      <span class="knowledge__glow knowledge__glow--a"></span>
+      <span class="knowledge__glow knowledge__glow--b"></span>
+      <span class="knowledge__glow knowledge__glow--c"></span>
+      <span class="knowledge__grain"></span>
+    </div>
+
+    <div class="knowledge__container">
+      <div class="knowledge__header">
+        <h2 class="knowledge__title">СТАТЬИ И ПОЛЕЗНЫЕ МАТЕРИАЛЫ</h2>
+        <p class="knowledge__subtitle">Экспертные материалы о банкротстве, списании долгов и защите ваших прав</p>
+      </div>
+
+      <div class="knowledge__filters" role="tablist">
+        <button class="knowledge__chip is-active" data-filter="all" type="button">Все статьи</button>
+        <button class="knowledge__chip" data-filter="fiz" type="button">Банкротство физических лиц</button>
+        <button class="knowledge__chip" data-filter="yur" type="button">Банкротство юридических лиц</button>
+        <button class="knowledge__chip" data-filter="vzysk" type="button">Взыскание задолженности</button>
+        <button class="knowledge__chip" data-filter="news" type="button">Новости</button>
+      </div>
+
+      <div class="knowledge__slider">
+        <button class="knowledge__arrow knowledge__arrow--prev" type="button" aria-label="Предыдущая">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <div class="knowledge__viewport">
+          <div class="knowledge__track" id="knowledgeTrack">
+            <!-- cards injected by JS for infinite loop -->
+          </div>
+        </div>
+
+        <button class="knowledge__arrow knowledge__arrow--next" type="button" aria-label="Следующая">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <template id="knowledgeData">
+        <script type="application/json">
+[
+  {"cat":"fiz","catLabel":"Банкротство физических лиц","title":"Как списать долги через банкротство физического лица","desc":"Пошаговый процесс банкротства физического лица, условия, документы и последствия процедуры.","date":"12 мая 2024","read":"6 мин.","tone":"a","img":"assets/a1.png"},
+  {"cat":"yur","catLabel":"Банкротство юридических лиц","title":"Банкротство юридических лиц: пошаговая инструкция","desc":"Разбираем этапы банкротства компании, риски для руководителя и возможные варианты развития событий.","date":"8 мая 2024","read":"8 мин.","tone":"b","img":"assets/a2.png"},
+  {"cat":"vzysk","catLabel":"Взыскание задолженности","title":"Как вернуть долг с контрагента без суда","desc":"Эффективные досудебные методы взыскания задолженности и как избежать длительных судебных тяжб.","date":"5 мая 2024","read":"5 мин.","tone":"c","img":"assets/a3.png"},
+  {"cat":"news","catLabel":"Новости","title":"Чем грозит неуплата кредитов и займов","desc":"Последствия просрочек по кредитам и займам: штрафы, пени, ухудшение кредитной истории и арест имущества.","date":"1 мая 2024","read":"4 мин.","tone":"d","img":"assets/a4.png"},
+  {"cat":"fiz","catLabel":"Банкротство физических лиц","title":"Какое имущество не могут забрать при банкротстве","desc":"Полный перечень имущества, которое остаётся у должника после завершения процедуры.","date":"28 апреля 2024","read":"5 мин.","tone":"e","img":"assets/a5.png"},
+  {"cat":"yur","catLabel":"Банкротство юридических лиц","title":"Субсидиарная ответственность руководителя","desc":"В каких случаях руководитель может быть привлечён к ответственности по долгам компании.","date":"20 апреля 2024","read":"7 мин.","tone":"f","img":"assets/a6.png"},
+  {"cat":"vzysk","catLabel":"Взыскание задолженности","title":"Исполнительное производство: что делать должнику","desc":"Права и обязанности сторон при принудительном взыскании долга и способы законной защиты.","date":"15 апреля 2024","read":"6 мин.","tone":"g","img":"assets/a1.png"},
+  {"cat":"news","catLabel":"Новости","title":"Изменения в законе о банкротстве 2024","desc":"Ключевые поправки в законодательстве и как они влияют на должников и кредиторов в текущем году.","date":"10 апреля 2024","read":"5 мин.","tone":"h","img":"assets/a2.png"}
+]
+        </script>
+      </template>
+    </div>
+  </section>
+
+  <!-- ФУТЕР -->
+  <footer class="footer" id="footer">
+    <div class="footer__bg" aria-hidden="true"></div>
+
+    <div class="footer__container">
+
+      <!-- CTA-баннер -->
+      <div class="footer__cta">
+        <div class="footer__cta-left">
+          <div class="footer__cta-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 7h9a4 4 0 0 1 4 4v15a3 3 0 0 0-3-3H5V7zm22 0h-9a4 4 0 0 0-4 4v15a3 3 0 0 1 3-3h10V7z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="footer__cta-text">
+            <strong>Хотите решить свою ситуацию?</strong>
+            <span>Получите бесплатную консультацию эксперта и узнайте ваши шансы на списание долгов.</span>
+          </div>
+        </div>
+        <a href="#contacts" class="footer__cta-btn">
+          <span>Получить консультацию</span>
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Основная сетка -->
+      <div class="footer__grid">
+
+        <!-- Бренд -->
+        <div class="footer__brand">
+          <div class="footer__logo-row">
+            <div class="footer__logo">
+              <img src="assets/logo.svg" alt="Ликвидатор" onerror="this.style.display='none'"/>
+            </div>
+            <span class="footer__brand-name">ЛИКВИДАТОР</span>
+          </div>
+          <p class="footer__tagline">Реальные дела. Реальные результаты.</p>
+          <p class="footer__descr">
+            Помогаем физическим и юридическим лицам списать или вернуть долги и начать новую жизнь.
+            Полное сопровождение на всех этапах.
+          </p>
+
+          <div class="footer__badge">
+            <div class="footer__badge-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2l9 4v6c0 5.5-3.8 10.3-9 12-5.2-1.7-9-6.5-9-12V6l9-4z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                <path d="M8 12.5l2.8 2.8L16 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="footer__badge-text">
+              <strong>Надёжность и законность</strong>
+              <span>Работаем в рамках ФЗ и действующего законодательства РФ.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Реквизиты -->
+        <div class="footer__col">
+          <h4 class="footer__col-title">РЕКВИЗИТЫ</h4>
+          <ul class="footer__list footer__list--plain">
+            <li>ООО «ЛИКВИДАТОР»</li>
+            <li>ИНН 6685155067</li>
+            <li>КПП 667101001</li>
+            <li>ОГРН 1186658079728</li>
+          </ul>
+          <a href="#" class="footer__pay" aria-label="Онлайн оплата">
+            <div class="footer__pay-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.7"/>
+                <path d="M3 10h18M7 15h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="footer__pay-text">
+              <strong>Онлайн оплата</strong>
+              <span>Безопасная оплата услуг</span>
+            </div>
+            <svg class="footer__pay-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Контакты -->
+        <div class="footer__col footer__col--contacts">
+          <h4 class="footer__col-title">КОНТАКТЫ</h4>
+          <ul class="footer__list">
+            <li>
+              <a href="tel:+78000000000" class="footer__contact">
+                <span class="footer__contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="footer__contact-text">
+                  <strong>8 800 ХХХ-ХХ-ХХ</strong>
+                  <span>Бесплатно по России</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:info@pravo.shop" class="footer__contact">
+                <span class="footer__contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.7"/>
+                    <path d="M3 7l9 7 9-7" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="footer__contact-text">
+                  <strong>info@pravo.shop</strong>
+                  <span>Электронная почта</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D1%83%D0%BB.%20%D0%94%D0%BE%D0%B1%D1%80%D0%BE%D0%BB%D1%8E%D0%B1%D0%BE%D0%B2%D0%B0%2C%203%20%D1%81%D1%82%D1%80.%201&rtext=~~%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D1%83%D0%BB.%20%D0%94%D0%BE%D0%B1%D1%80%D0%BE%D0%BB%D1%8E%D0%B1%D0%BE%D0%B2%D0%B0%2C%203%20%D1%81%D1%82%D1%80.%201&rtt=auto" target="_blank" rel="noopener" class="footer__contact">
+                <span class="footer__contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22s8-7.5 8-13a8 8 0 1 0-16 0c0 5.5 8 13 8 13z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                    <circle cx="12" cy="9" r="3" stroke="currentColor" stroke-width="1.7"/>
+                  </svg>
+                </span>
+                <span class="footer__contact-text">
+                  <strong>г. Москва, ул. Добролюбова, 3 стр. 1</strong>
+                  <span>Построить маршрут</span>
+                </span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="footer__socials">
+            <a href="#" aria-label="WhatsApp" class="footer__social footer__social--wa">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.5 12a8.5 8.5 0 1 0-15.9 4.2L4 20l3.9-.6A8.5 8.5 0 0 0 20.5 12z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                <path d="M9 9c.3-.7.8-1 1.3-1 .7 0 1 .5 1.3 1.2.3.9-.3 1.4-.3 1.8.6 1.2 1.5 2 2.6 2.6.3 0 .9-.6 1.7-.3.8.3 1.3.7 1.3 1.4 0 .6-.3 1-1 1.3-1.8.9-6.5-2-7-5.1-.1-.5 0-1.4.1-1.9z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="Telegram" class="footer__social footer__social--tg">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 5L3 11l6 2 2 6 3-4 5 4 2-14z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="Написать в мессенджер" class="footer__social footer__social--msg">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 12a8 8 0 1 1-3.3-6.4L21 4l-1 3.5A8 8 0 0 1 21 12z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Для бизнеса -->
+        <div class="footer__col">
+          <h4 class="footer__col-title">ДЛЯ БИЗНЕСА</h4>
+          <ul class="footer__list footer__biz">
+            <li>
+              <span class="footer__biz-role">Юридическое сопровождение</span>
+              <a href="mailto:law@pravo.shop" class="footer__biz-mail">law@pravo.shop</a>
+            </li>
+            <li>
+              <span class="footer__biz-role">Коммерческие предложения</span>
+              <a href="mailto:biz@pravo.shop" class="footer__biz-mail">biz@pravo.shop</a>
+            </li>
+            <li>
+              <span class="footer__biz-role">Взаимодействие со СМИ</span>
+              <a href="mailto:pr@pravo.shop" class="footer__biz-mail">pr@pravo.shop</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Нижняя полоса -->
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2018-2026 ООО «ЛИКВИДАТОР». Все права защищены.</p>
+        <div class="footer__links">
+          <a href="#">Политика персональных данных</a>
+          <a href="#">Пользовательское соглашение</a>
+          <a href="#">Карта сайта</a>
+        </div>
+        <p class="footer__disclaimer">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l9 4v6c0 5.5-3.8 10.3-9 12-5.2-1.7-9-6.5-9-12V6l9-4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <span>Информация на сайте<br/>не является публичной офертой.</span>
+        </p>
+      </div>
+
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
