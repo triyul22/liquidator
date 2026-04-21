@@ -15,10 +15,17 @@
     setTimeout(() => loader.remove(), 600);
   }
 
+  const MIN_LOADER_MS = 2000;
+  const startedAt = performance.now();
+  function hideWithDelay() {
+    const elapsed = performance.now() - startedAt;
+    const wait = Math.max(0, MIN_LOADER_MS - elapsed);
+    setTimeout(hideLoader, wait);
+  }
   if (document.readyState === 'complete') {
-    hideLoader();
+    hideWithDelay();
   } else {
-    window.addEventListener('load', hideLoader);
+    window.addEventListener('load', hideWithDelay);
   }
 })();
 
@@ -151,15 +158,20 @@ if (lion) {
   // Wheel / trackpad — advance on the first event of a fresh gesture (gap-based).
   // Any wheel events arriving <120ms apart are treated as the same gesture (inertia)
   // and ignored, so deliberate back-to-back scrolls always register.
-  let lastWheelTime = 0;
+  let lastActionTime = 0;
+  let lastDelta = 0;
   stack.addEventListener('wheel', (e) => {
     e.preventDefault();
-    if (Math.abs(e.deltaY) < 4) return;
+    const dy = e.deltaY;
+    if (Math.abs(dy) < 4) return;
     const now = performance.now();
-    const gap = now - lastWheelTime;
-    lastWheelTime = now;
-    if (gap < 120) return;
-    if (e.deltaY > 0) next();
+    const sinceAction = now - lastActionTime;
+    // Inertia detection: consecutive events with decaying magnitude in the same direction
+    const decaying = lastDelta !== 0 && Math.sign(dy) === Math.sign(lastDelta) && Math.abs(dy) <= Math.abs(lastDelta) + 1;
+    lastDelta = dy;
+    if (sinceAction < 400 && decaying) return;
+    lastActionTime = now;
+    if (dy > 0) next();
     else prev();
   }, { passive: false });
 
@@ -266,6 +278,31 @@ if (lion) {
   window.addEventListener('scroll', checkSteps, { passive: true });
   window.addEventListener('resize', checkSteps, { passive: true });
   checkSteps();
+
+  // Equalize heights of steps at the same row index across all columns
+  const cols = [...document.querySelectorAll('.services__col')];
+  function equalizeRows() {
+    if (!cols.length) return;
+    const rows = Math.max(...cols.map(c => c.querySelectorAll('.services__step').length));
+    // reset
+    cols.forEach(c => c.querySelectorAll('.services__step').forEach(s => { s.style.minHeight = ''; }));
+    if (window.innerWidth < 900) return;
+    for (let i = 0; i < rows; i++) {
+      let max = 0;
+      cols.forEach(c => {
+        const s = c.querySelectorAll('.services__step')[i];
+        if (s) max = Math.max(max, s.getBoundingClientRect().height);
+      });
+      cols.forEach(c => {
+        const s = c.querySelectorAll('.services__step')[i];
+        if (s) s.style.minHeight = max + 'px';
+      });
+    }
+  }
+  window.addEventListener('load', equalizeRows);
+  window.addEventListener('resize', () => { clearTimeout(window.__eqRows); window.__eqRows = setTimeout(equalizeRows, 100); });
+  setTimeout(equalizeRows, 100);
+  setTimeout(equalizeRows, 600);
 })();
 
 // Knowledge base: horizontal infinite carousel with category filters
