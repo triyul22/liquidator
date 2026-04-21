@@ -2,7 +2,8 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f0ede6"/>
   <title>Все статьи и материалы - ЛИКВИДАТОР</title>
   <meta name="description" content="Все экспертные материалы о банкротстве физических и юридических лиц, взыскании задолженности и защите прав." />
   <link rel="canonical" href="/category/all.html" />
@@ -12,29 +13,62 @@
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600&family=Onest:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css" />
 </head>
-<body class="category-page" data-cat="all">
+<body class="category-page category-page--light" data-cat="all">
+
+  <div class="category-bg" aria-hidden="true">
+    <span class="category-bg__blob category-bg__blob--1"></span>
+    <span class="category-bg__blob category-bg__blob--2"></span>
+    <span class="category-bg__blob category-bg__blob--3"></span>
+    <span class="category-bg__blob category-bg__blob--4"></span>
+    <span class="category-bg__bokeh"></span>
+    <svg class="category-bg__waves" viewBox="0 0 1600 400" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="catWaveGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(75,83,32,0)"/>
+          <stop offset="30%" stop-color="rgba(75,83,32,0.35)"/>
+          <stop offset="70%" stop-color="rgba(75,83,32,0.35)"/>
+          <stop offset="100%" stop-color="rgba(75,83,32,0)"/>
+        </linearGradient>
+      </defs>
+      <path class="category-bg__wave category-bg__wave--1" stroke="url(#catWaveGrad)" stroke-width="1" fill="none" d="M0 280 C 300 240, 500 340, 800 280 S 1300 220, 1600 300"/>
+      <path class="category-bg__wave category-bg__wave--2" stroke="url(#catWaveGrad)" stroke-width="1" fill="none" d="M0 320 C 350 260, 600 360, 900 310 S 1350 260, 1600 340"/>
+    </svg>
+    <span class="category-bg__grain"></span>
+  </div>
 
   <header class="header" id="header">
     <div class="header__inner">
+      <button class="header__burger" id="headerBurger" type="button" aria-label="Меню" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
       <nav class="header__nav header__nav--left">
         <a href="../index.html#services">УСЛУГИ</a>
         <a href="../index.html#cases">КЕЙСЫ</a>
       </nav>
+
       <a href="../index.html" class="header__brand">
         <img src="../assets/logo.svg" alt="" class="header__logo" onerror="this.style.display='none'"/>
         <span class="header__brand-text">ЛИКВИДАТОР</span>
       </a>
+
       <nav class="header__nav header__nav--right">
         <a href="../index.html#knowledge">БАЗА ЗНАНИЙ</a>
         <a href="../index.html#footer">КОНТАКТЫ</a>
       </nav>
+    </div>
+
+    <div class="header__mobile-menu" id="headerMobileMenu" aria-hidden="true">
+      <a href="../index.html#services" data-close>УСЛУГИ</a>
+      <a href="../index.html#cases" data-close>КЕЙСЫ</a>
+      <a href="../index.html#knowledge" data-close>БАЗА ЗНАНИЙ</a>
+      <a href="../index.html#footer" data-close>КОНТАКТЫ</a>
     </div>
   </header>
 
   <main class="category">
     <div class="category__container">
       <div class="category__head">
-        <span class="category__tag">База знаний</span>
         <h1 class="category__title">Все статьи и материалы</h1>
         <p class="category__subtitle">Экспертные материалы о банкротстве физических и юридических лиц, взыскании задолженности и защите ваших прав.</p>
       </div>
@@ -52,17 +86,203 @@
     </div>
   </main>
 
-  <footer class="article-footer">
-    <div class="article-footer__inner">
-      <div class="article-footer__brand">
-        <img src="../assets/logo.svg" alt="" onerror="this.style.display='none'"/>
-        <span>ЛИКВИДАТОР</span>
+  <footer class="footer" id="footer">
+    <div class="footer__bg" aria-hidden="true"></div>
+
+    <div class="footer__container">
+
+      <div class="footer__grid">
+
+        <div class="footer__brand">
+          <div class="footer__logo-row">
+            <div class="footer__logo">
+              <img src="../assets/logo.svg" alt="Ликвидатор" onerror="this.style.display='none'"/>
+            </div>
+            <span class="footer__brand-name">ЛИКВИДАТОР</span>
+          </div>
+          <p class="footer__tagline">Реальные дела. Реальные результаты.</p>
+          <p class="footer__descr">
+            Помогаем физическим и юридическим лицам списать или вернуть долги и начать новую жизнь.
+            Полное сопровождение на всех этапах.
+          </p>
+
+          <div class="footer__badge">
+            <div class="footer__badge-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2l9 4v6c0 5.5-3.8 10.3-9 12-5.2-1.7-9-6.5-9-12V6l9-4z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                <path d="M8 12.5l2.8 2.8L16 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="footer__badge-text">
+              <strong>Надёжность и законность</strong>
+              <span>Работаем в рамках ФЗ и действующего законодательства РФ.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">РЕКВИЗИТЫ</h4>
+          <ul class="footer__list footer__list--plain">
+            <li>ООО «ЛИКВИДАТОР»</li>
+            <li>ИНН 6685155067</li>
+            <li>КПП 667101001</li>
+            <li>ОГРН 1186658079728</li>
+          </ul>
+          <a href="#" class="footer__pay" aria-label="Онлайн оплата">
+            <div class="footer__pay-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.7"/>
+                <path d="M3 10h18M7 15h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="footer__pay-text">
+              <strong>Онлайн оплата</strong>
+              <span>Безопасная оплата услуг</span>
+            </div>
+            <svg class="footer__pay-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="footer__col footer__col--contacts">
+          <h4 class="footer__col-title">КОНТАКТЫ</h4>
+          <ul class="footer__list">
+            <li>
+              <a href="tel:+78000000000" class="footer__contact">
+                <span class="footer__contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="footer__contact-text">
+                  <strong>8 800 ХХХ-ХХ-ХХ</strong>
+                  <span>Бесплатно по России</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:info@pravo.shop" class="footer__contact">
+                <span class="footer__contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.7"/>
+                    <path d="M3 7l9 7 9-7" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="footer__contact-text">
+                  <strong>info@pravo.shop</strong>
+                  <span>Электронная почта</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D1%83%D0%BB.%20%D0%94%D0%BE%D0%B1%D1%80%D0%BE%D0%BB%D1%8E%D0%B1%D0%BE%D0%B2%D0%B0%2C%203%20%D1%81%D1%82%D1%80.%201" target="_blank" rel="noopener" class="footer__contact">
+                <span class="footer__contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22s8-7.5 8-13a8 8 0 1 0-16 0c0 5.5 8 13 8 13z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                    <circle cx="12" cy="9" r="3" stroke="currentColor" stroke-width="1.7"/>
+                  </svg>
+                </span>
+                <span class="footer__contact-text">
+                  <strong>г. Москва, ул. Добролюбова, 3 стр. 1</strong>
+                  <span>Построить маршрут</span>
+                </span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="footer__socials">
+            <a href="#" aria-label="WhatsApp" class="footer__social footer__social--wa">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.5 12a8.5 8.5 0 1 0-15.9 4.2L4 20l3.9-.6A8.5 8.5 0 0 0 20.5 12z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                <path d="M9 9c.3-.7.8-1 1.3-1 .7 0 1 .5 1.3 1.2.3.9-.3 1.4-.3 1.8.6 1.2 1.5 2 2.6 2.6.3 0 .9-.6 1.7-.3.8.3 1.3.7 1.3 1.4 0 .6-.3 1-1 1.3-1.8.9-6.5-2-7-5.1-.1-.5 0-1.4.1-1.9z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="Telegram" class="footer__social footer__social--tg">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 5L3 11l6 2 2 6 3-4 5 4 2-14z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="Max" class="footer__social footer__social--max">
+              <img src="../assets/Max_logo.svg" alt="Max" />
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">ДЛЯ БИЗНЕСА</h4>
+          <ul class="footer__list footer__biz">
+            <li>
+              <span class="footer__biz-role">Юридическое сопровождение</span>
+              <a href="mailto:law@pravo.shop" class="footer__biz-mail">law@pravo.shop</a>
+            </li>
+            <li>
+              <span class="footer__biz-role">Коммерческие предложения</span>
+              <a href="mailto:biz@pravo.shop" class="footer__biz-mail">biz@pravo.shop</a>
+            </li>
+            <li>
+              <span class="footer__biz-role">Взаимодействие<br/>со СМИ</span>
+              <a href="mailto:pr@pravo.shop" class="footer__biz-mail">pr@pravo.shop</a>
+            </li>
+          </ul>
+        </div>
+
       </div>
-      <p class="article-footer__law">Федеральный закон «О несостоятельности» от 26.10.2002 № 127-ФЗ</p>
-      <p class="article-footer__copy">© ООО «ЛИКВИДАТОР». Реальные дела. Реальные результаты.</p>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2018-2026 ООО «ЛИКВИДАТОР». Все права защищены.</p>
+        <div class="footer__links">
+          <a href="../privacy.html">Политика персональных данных</a>
+          <a href="#">Пользовательское соглашение</a>
+        </div>
+        <p class="footer__disclaimer">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l9 4v6c0 5.5-3.8 10.3-9 12-5.2-1.7-9-6.5-9-12V6l9-4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <span>Информация на сайте<br/>не является публичной офертой.</span>
+        </p>
+      </div>
+
     </div>
   </footer>
 
+  <script>
+    (function(){
+      const header = document.getElementById('header');
+      if (!header) return;
+      const onScroll = () => {
+        if (window.scrollY > 80) header.classList.add('is-collapsed');
+        else header.classList.remove('is-collapsed');
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      const burger = document.getElementById('headerBurger');
+      const menu = document.getElementById('headerMobileMenu');
+      if (burger && menu) {
+        const close = () => {
+          header.classList.remove('is-menu-open');
+          burger.setAttribute('aria-expanded', 'false');
+          menu.setAttribute('aria-hidden', 'true');
+        };
+        burger.addEventListener('click', () => {
+          const open = !header.classList.contains('is-menu-open');
+          header.classList.toggle('is-menu-open', open);
+          burger.setAttribute('aria-expanded', String(open));
+          menu.setAttribute('aria-hidden', String(!open));
+        });
+        menu.querySelectorAll('a[data-close]').forEach(a => a.addEventListener('click', close));
+        document.addEventListener('click', (e) => {
+          if (!header.classList.contains('is-menu-open')) return;
+          if (e.target.closest('.header')) return;
+          close();
+        });
+        window.addEventListener('scroll', () => {
+          if (header.classList.contains('is-menu-open')) close();
+        }, { passive: true });
+      }
+    })();
+  </script>
   <script src="category.js"></script>
 </body>
 </html>

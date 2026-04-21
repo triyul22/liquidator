@@ -125,7 +125,7 @@
             ПОЧЕМУ КЛИЕНТЫ<br/>ВЫБИРАЮТ НАС?
           </h2>
           <p class="cases__subtitle">
-            Надежные решения и<br/>прозрачный процесс
+            Надежные решения.<br/>Прозрачный процесс.
           </p>
 
           <ul class="features">
@@ -501,9 +501,9 @@
               <header class="case-tab__head">
                 <div class="case-tab__id">
                   <svg class="case-tab__id-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v18M4 8h16M6 8l-3 6h6l-3-6zm12 0l-3 6h6l-3-6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>ЛИКВИДАЦИЯ</span>
+                  <span>Дело № А56-11172/2024</span>
                 </div>
-                <span class="case-tab__status">ООО ликвидировано</span>
+                <span class="case-tab__status">ЛИКВИДАЦИЯ</span>
               </header>
               <div class="case-tab__body">
                 <p class="case-tab__desc">Владелец бизнеса обратился за услугой ликвидации общества через процедуру банкротства. Общество с долгом более 3 000 000 ₽ было ликвидировано и исключено из ЕГРЮЛ, процедура прошла за 6 месяцев.</p>
@@ -778,9 +778,23 @@
   <!-- БАЗА ЗНАНИЙ -->
   <section class="knowledge" id="knowledge">
     <div class="knowledge__bg" aria-hidden="true">
-      <span class="knowledge__glow knowledge__glow--a"></span>
-      <span class="knowledge__glow knowledge__glow--b"></span>
-      <span class="knowledge__glow knowledge__glow--c"></span>
+      <span class="knowledge__bokeh knowledge__bokeh--small"></span>
+      <span class="knowledge__bokeh knowledge__bokeh--mid"></span>
+      <span class="knowledge__bokeh knowledge__bokeh--large"></span>
+      <span class="knowledge__glow knowledge__glow--center"></span>
+      <svg class="knowledge__waves" viewBox="0 0 1600 400" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="rgba(230,190,90,0)"/>
+            <stop offset="30%" stop-color="rgba(230,190,90,0.55)"/>
+            <stop offset="70%" stop-color="rgba(230,190,90,0.55)"/>
+            <stop offset="100%" stop-color="rgba(230,190,90,0)"/>
+          </linearGradient>
+        </defs>
+        <path class="knowledge__wave knowledge__wave--1" stroke="url(#waveGrad)" stroke-width="1" fill="none" d="M0 280 C 300 240, 500 340, 800 280 S 1300 220, 1600 300"/>
+        <path class="knowledge__wave knowledge__wave--2" stroke="url(#waveGrad)" stroke-width="1" fill="none" d="M0 320 C 350 260, 600 360, 900 310 S 1350 260, 1600 340"/>
+        <path class="knowledge__wave knowledge__wave--3" stroke="url(#waveGrad)" stroke-width="0.8" fill="none" d="M0 200 C 280 160, 520 260, 820 210 S 1280 150, 1600 230"/>
+      </svg>
       <span class="knowledge__grain"></span>
     </div>
 
@@ -791,8 +805,7 @@
       </div>
 
       <div class="knowledge__filters" role="tablist">
-        <button class="knowledge__chip is-active" data-filter="all" type="button">Все статьи</button>
-        <button class="knowledge__chip" data-filter="fiz" type="button">Банкротство физических лиц</button>
+        <button class="knowledge__chip is-active" data-filter="fiz" type="button">Банкротство физических лиц</button>
         <button class="knowledge__chip" data-filter="yur" type="button">Банкротство юридических лиц</button>
         <button class="knowledge__chip" data-filter="vzysk" type="button">Взыскание задолженности</button>
         <button class="knowledge__chip" data-filter="news" type="button">Новости</button>
