@@ -54,8 +54,15 @@
     .payment__crumbs a:hover { color: #d7dcb4; }
     .payment__crumbs-sep { opacity: .4; }
     .payment__crumbs .is-current { color: #e8ebe0; }
+    .payment__crumbs > * { white-space: nowrap; }
     @media (max-width: 700px) {
-      .payment__crumbs { font-size: 11px; gap: 6px 8px; margin-bottom: 14px; letter-spacing: .04em; }
+      .payment__crumbs {
+        font-size: 11px; gap: 6px; margin-bottom: 14px; letter-spacing: .03em;
+        flex-wrap: nowrap; overflow: hidden;
+      }
+    }
+    @media (max-width: 380px) {
+      .payment__crumbs { font-size: 10px; letter-spacing: .02em; }
     }
 
     .payment__title {
