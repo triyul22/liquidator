@@ -2939,7 +2939,8 @@ a {
 .article__author--company .article__author-role { color: var(--khaki-light); font-family: var(--font-display); font-weight: 600; font-size: 11px; text-align: justify; }
 .article__author--company .article__author-bio { text-align: justify; }
 .article__cta:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(75,83,32,0.4); }
-.article__cta svg { width: 18px; height: 18px; }
+.article__cta svg { width: 18px; height: 18px; flex-shrink: 0; }
+.article__cta span { white-space: nowrap; }
 
 .article__related { margin-top: 64px; padding-top: 48px; border-top: 1px solid rgba(255,255,255,0.08); }
 .article__related-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(22px, 2.4vw, 30px); color: #fff; margin: 0 0 24px; }
