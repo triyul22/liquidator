@@ -2485,6 +2485,8 @@ a {
   color: #cfd1d6;
   overflow: hidden;
   padding: 50px 0 30px;
+  overflow-anchor: none;
+  contain: layout paint;
 }
 .footer__bg {
   position: absolute;
