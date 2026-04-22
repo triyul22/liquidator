@@ -701,16 +701,9 @@ if (lion) {
       statusEl.className = 'contacts__status is-error';
       return;
     }
-    const name = nameEl.value.trim();
-    const phone = formatPhone(getPhoneDigits());
-    const subject = encodeURIComponent('Заявка с сайта Ликвидатор');
-    const body = encodeURIComponent(`Имя: ${name}\nТелефон: ${phone}`);
-    statusEl.textContent = 'Открываем почтовый клиент...';
+    statusEl.textContent = 'Спасибо! Мы свяжемся с вами в ближайшее время.';
     statusEl.className = 'contacts__status is-success';
-    window.location.href = `mailto:lead@pravo.shop?subject=${subject}&body=${body}`;
-    setTimeout(() => {
-      statusEl.textContent = 'Спасибо! Мы свяжемся с вами в ближайшее время.';
-    }, 800);
+    form.reset();
   });
 })();
 
