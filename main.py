@@ -29,6 +29,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, field_validator
 
+# Локально подхватываем .env (на Timeweb переменные идут из ENV приложения)
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 # ============ CONFIG ============
 ROOT = Path(__file__).parent
 

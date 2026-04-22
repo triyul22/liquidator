@@ -796,16 +796,65 @@ if (lion) {
   nameEl.addEventListener('input', clearError);
   consentEl.addEventListener('change', clearError);
 
-  form.addEventListener('submit', (e) => {
+  const hpEl = document.getElementById('leadHp');
+  const API_URL = (window.__API_BASE || '') + '/api/lead';
+
+  async function sendLead() {
+    const payload = {
+      name: nameEl.value.trim(),
+      phone: phoneEl.value.trim(),
+      consent: !!consentEl.checked,
+      source: (document.title || 'liquidator') + ' | ' + location.pathname,
+      _hp: hpEl ? hpEl.value : ''
+    };
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      credentials: 'omit'
+    });
+    let data = null;
+    try { data = await res.json(); } catch (_) {}
+    if (!res.ok) {
+      const msg = (data && (data.detail || data.message)) || 'Не удалось отправить заявку. Попробуйте позже.';
+      throw new Error(typeof msg === 'string' ? msg : 'Ошибка отправки');
+    }
+    return data;
+  }
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!validate()) {
       statusEl.textContent = getError();
       statusEl.className = 'contacts__status is-error';
       return;
     }
-    statusEl.textContent = 'Спасибо! Мы свяжемся с вами в ближайшее время.';
-    statusEl.className = 'contacts__status is-success';
-    form.reset();
+    // loading state
+    submitEl.disabled = true;
+    const prevLabel = submitEl.innerHTML;
+    submitEl.innerHTML = '<span>ОТПРАВКА...</span>';
+    statusEl.textContent = '';
+    statusEl.className = 'contacts__status';
+    try {
+      await sendLead();
+      statusEl.textContent = 'Спасибо! Мы свяжемся с вами в течение 15 минут.';
+      statusEl.className = 'contacts__status is-success';
+      form.reset();
+      // автозакрытие модалки через 3 сек
+      setTimeout(() => {
+        if (window.__contactsModal && window.__contactsModal.close) {
+          window.__contactsModal.close();
+        }
+        statusEl.textContent = '';
+        statusEl.className = 'contacts__status';
+      }, 3000);
+    } catch (err) {
+      statusEl.textContent = err.message || 'Не удалось отправить заявку. Позвоните нам или попробуйте позже.';
+      statusEl.className = 'contacts__status is-error';
+    } finally {
+      submitEl.disabled = false;
+      submitEl.innerHTML = prevLabel;
+    }
   });
 })();
 
