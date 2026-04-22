@@ -84,7 +84,6 @@ PHONE_RE = re.compile(r"^[\d\s\+\-\(\)]{10,25}$")
 class LeadIn(BaseModel):
     name: str = Field(..., min_length=2, max_length=100)
     phone: str = Field(..., min_length=10, max_length=25)
-    message: Optional[str] = Field(default="", max_length=2000)
     source: Optional[str] = Field(default="", max_length=200)
     consent: bool = True
     # honeypot: скрытое поле, которое боты обычно заполняют, а люди - нет
@@ -166,8 +165,7 @@ def _render_mail(payload: LeadIn, ip: str, ua: str, ts: str) -> tuple[str, str]:
     text = (
         "Новая заявка с сайта ЛИКВИДАТОР\n\n"
         f"Имя: {payload.name}\n"
-        f"Телефон: {payload.phone}\n"
-        f"Сообщение: {payload.message or '(пусто)'}\n\n"
+        f"Телефон: {payload.phone}\n\n"
         f"Источник: {payload.source or '(не указан)'}\n"
         f"Дата: {ts}\n"
         f"IP: {ip}\n"
@@ -179,7 +177,6 @@ def _render_mail(payload: LeadIn, ip: str, ua: str, ts: str) -> tuple[str, str]:
   <table cellpadding="6" style="border-collapse:collapse;font-size:15px;">
     <tr><td style="color:#888;width:120px;">Имя:</td><td><b>{e(payload.name)}</b></td></tr>
     <tr><td style="color:#888;">Телефон:</td><td><b><a href="tel:{e(payload.phone)}">{e(payload.phone)}</a></b></td></tr>
-    <tr><td style="color:#888;vertical-align:top;">Сообщение:</td><td>{e(payload.message) or '<i>(пусто)</i>'}</td></tr>
     <tr><td style="color:#888;">Источник:</td><td>{e(payload.source) or '<i>(не указан)</i>'}</td></tr>
     <tr><td style="color:#888;">Дата:</td><td>{ts}</td></tr>
     <tr><td style="color:#888;">IP:</td><td>{e(ip)}</td></tr>
