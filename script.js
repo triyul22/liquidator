@@ -15,21 +15,22 @@
     setTimeout(() => loader.remove(), 600);
   }
 
-  const MIN_LOADER_MS = 2000;
+  const MIN_LOADER_MS = 1600;
   const startedAt = performance.now();
   function hideWithDelay() {
     const elapsed = performance.now() - startedAt;
     const wait = Math.max(0, MIN_LOADER_MS - elapsed);
     setTimeout(hideLoader, wait);
   }
-  if (document.readyState === 'complete') {
+  // Не ждем window.load (видео может грузиться долго на медленных соединениях):
+  // прячем loader как только DOM готов + минимальная длительность анимации бара.
+  if (document.readyState === 'interactive' || document.readyState === 'complete') {
     hideWithDelay();
   } else {
-    window.addEventListener('load', hideWithDelay);
+    document.addEventListener('DOMContentLoaded', hideWithDelay);
   }
-  // Safety fallback: даже если load не сработал (медленное видео/сеть на мобилке),
-  // принудительно прячем loader через 4.5 секунды.
-  setTimeout(() => { if (!loader.classList.contains('is-hidden')) hideLoader(); }, 4500);
+  // Safety fallback на случай если что-то пошло не так.
+  setTimeout(() => { if (!loader.classList.contains('is-hidden')) hideLoader(); }, 2500);
 })();
 
 const header = document.getElementById('header');
