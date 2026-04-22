@@ -905,3 +905,32 @@ if (lion) {
 
   window.__contactsModal = { open, close };
 })();
+
+/* ============ LAZY VIDEO (services section) ============ */
+(function () {
+  const v = document.getElementById('servicesVideo');
+  if (!v || !v.dataset.src) return;
+
+  let loaded = false;
+  const load = () => {
+    if (loaded) return;
+    loaded = true;
+    v.src = v.dataset.src;
+    v.load();
+    v.play().catch(() => { /* ignore autoplay block */ });
+  };
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          load();
+          io.disconnect();
+        }
+      });
+    }, { rootMargin: '200px 0px' });
+    io.observe(v);
+  } else {
+    load();
+  }
+})();

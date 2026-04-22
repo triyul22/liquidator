@@ -306,7 +306,6 @@
       preload="metadata"
       poster="assets/lion-poster.jpg"
     >
-      <source src="assets/lion.webm" type="video/webm">
       <source src="assets/lion.mp4" type="video/mp4">
     </video>
 
@@ -784,10 +783,7 @@
 
   <!-- УСЛУГИ -->
   <section class="services" id="services">
-    <video class="services__video" autoplay muted loop playsinline preload="metadata" poster="assets/lion-poster.jpg">
-      <source src="assets/lion.webm" type="video/webm">
-      <source src="assets/lion.mp4" type="video/mp4">
-    </video>
+    <video class="services__video" id="servicesVideo" muted loop playsinline preload="none" poster="assets/lion-poster.jpg" data-src="assets/lion.mp4"></video>
     <div class="services__video-overlay" aria-hidden="true"></div>
     <div class="services__container">
 
