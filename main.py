@@ -85,6 +85,8 @@ class LeadIn(BaseModel):
     name: str = Field(..., min_length=2, max_length=100)
     phone: str = Field(..., min_length=10, max_length=25)
     source: Optional[str] = Field(default="", max_length=200)
+    page_url: Optional[str] = Field(default="", max_length=500)
+    page_title: Optional[str] = Field(default="", max_length=300)
     consent: bool = True
     # honeypot: скрытое поле, которое боты обычно заполняют, а люди - нет
     hp: Optional[str] = Field(default="", alias="_hp")
@@ -162,11 +164,31 @@ def _send_mail(subject: str, html_body: str, text_body: str) -> None:
 
 def _render_mail(payload: LeadIn, ip: str, ua: str, ts: str) -> tuple[str, str]:
     e = html.escape
+
+    # Источник: метка кнопки ("1 блок (главный экран)", "Статья") + ссылка на страницу.
+    # Если title страницы выглядит как "Статья: ...", показываем полное название статьи.
+    label = payload.source or "Не указан"
+    page_title = (payload.page_title or "").strip()
+    page_url = (payload.page_url or "").strip()
+
+    # собираем HTML-источник
+    if page_url:
+        anchor_text = page_title or page_url
+        source_html = f'{e(label)} - <a href="{e(page_url)}">{e(anchor_text)}</a>'
+    else:
+        source_html = e(label)
+
+    # собираем plain-text источник
+    if page_url:
+        source_text = f"{label} - {page_title or page_url} ({page_url})"
+    else:
+        source_text = label
+
     text = (
         "Новая заявка с сайта ЛИКВИДАТОР\n\n"
         f"Имя: {payload.name}\n"
         f"Телефон: {payload.phone}\n\n"
-        f"Источник: {payload.source or '(не указан)'}\n"
+        f"Источник: {source_text}\n"
         f"Дата: {ts}\n"
         f"IP: {ip}\n"
         f"User-Agent: {ua}\n"
@@ -177,7 +199,7 @@ def _render_mail(payload: LeadIn, ip: str, ua: str, ts: str) -> tuple[str, str]:
   <table cellpadding="6" style="border-collapse:collapse;font-size:15px;">
     <tr><td style="color:#888;width:120px;">Имя:</td><td><b>{e(payload.name)}</b></td></tr>
     <tr><td style="color:#888;">Телефон:</td><td><b><a href="tel:{e(payload.phone)}">{e(payload.phone)}</a></b></td></tr>
-    <tr><td style="color:#888;">Источник:</td><td>{e(payload.source) or '<i>(не указан)</i>'}</td></tr>
+    <tr><td style="color:#888;vertical-align:top;">Источник:</td><td>{source_html}</td></tr>
     <tr><td style="color:#888;">Дата:</td><td>{ts}</td></tr>
     <tr><td style="color:#888;">IP:</td><td>{e(ip)}</td></tr>
     <tr><td style="color:#888;vertical-align:top;">User-Agent:</td><td style="font-size:12px;color:#666;">{e(ua)}</td></tr>
@@ -236,7 +258,7 @@ async def create_lead(payload: LeadIn, request: Request):
     html_body, text_body = _render_mail(payload, ip, ua, ts)
 
     try:
-        _send_mail(f"Заявка с сайта: {payload.name}", html_body, text_body)
+        _send_mail("PRAVO.SHOP - Заявка", html_body, text_body)
     except Exception:
         log.exception("send_mail failed")
         raise HTTPException(

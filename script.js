@@ -804,7 +804,9 @@ if (lion) {
       name: nameEl.value.trim(),
       phone: phoneEl.value.trim(),
       consent: !!consentEl.checked,
-      source: (document.title || 'liquidator') + ' | ' + location.pathname,
+      source: window.__leadSource || 'Не указан',
+      page_url: location.href,
+      page_title: document.title || '',
       _hp: hpEl ? hpEl.value : ''
     };
     const res = await fetch(API_URL, {
@@ -877,7 +879,12 @@ if (lion) {
     document.body.classList.remove('is-modal-open');
   };
 
-  triggers.forEach(t => t.addEventListener('click', (e) => { e.preventDefault(); open(); }));
+  triggers.forEach(t => t.addEventListener('click', (e) => {
+    e.preventDefault();
+    // запоминаем, с какой кнопки открыли модалку, чтобы в письме указать источник
+    window.__leadSource = t.getAttribute('data-source') || 'Не указан';
+    open();
+  }));
   closers.forEach(c => c.addEventListener('click', close));
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
