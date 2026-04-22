@@ -206,12 +206,27 @@
     .payment__consent a:hover { color: #e0e8c2; border-bottom-color: #e0e8c2; }
 
     .payment__status {
-      min-height: 22px; margin: 12px 0 0;
-      font: 500 13.5px/1.4 'Manrope', sans-serif;
-      transition: color .2s;
+      margin: 12px 0 0;
+      min-height: 18px;
+      text-align: center;
+      font: 500 13px/1.4 'Manrope', sans-serif;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: transparent;
+      transition: background .2s, color .2s;
     }
-    .payment__status.is-error { color: #e46b55; }
-    .payment__status.is-success { color: #a7c06b; }
+    .payment__status:empty { padding: 0; min-height: 0; }
+    .payment__status.is-error {
+      color: #fff; font-weight: 600;
+      background: #c0392b;
+      border: 1px solid rgba(255,255,255,.2);
+    }
+    .payment__status.is-success {
+      color: #fff; font-weight: 600;
+      background: #2e7d32;
+      border: 1px solid rgba(255,255,255,.2);
+    }
 
     /* маркиз внизу - точно как на главной (стили из styles.css: .hero__marquee) */
     .payment__marquee-wrap {
@@ -315,7 +330,7 @@
             </button>
 
             <label class="payment__consent">
-              <input type="checkbox" class="payment__consent-input" id="payConsent" checked />
+              <input type="checkbox" class="payment__consent-input" id="payConsent" />
               <span class="payment__consent-check" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-11" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
