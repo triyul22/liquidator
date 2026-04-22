@@ -209,12 +209,14 @@
     <video
       class="hero__lion"
       id="heroLion"
-      src="assets/lion.mp4"
       muted
       playsinline
       preload="auto"
       poster="assets/lion.png"
-    ></video>
+    >
+      <source src="assets/lion.webm" type="video/webm">
+      <source src="assets/lion.mp4" type="video/mp4">
+    </video>
 
     <div class="hero__content">
       <h1 class="hero__title">
@@ -690,7 +692,10 @@
 
   <!-- УСЛУГИ -->
   <section class="services" id="services">
-    <video class="services__video" src="assets/lion.mp4" autoplay muted loop playsinline preload="auto"></video>
+    <video class="services__video" autoplay muted loop playsinline preload="metadata" poster="assets/lion-poster.jpg">
+      <source src="assets/lion.webm" type="video/webm">
+      <source src="assets/lion.mp4" type="video/mp4">
+    </video>
     <div class="services__video-overlay" aria-hidden="true"></div>
     <div class="services__container">
 
