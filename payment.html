@@ -59,11 +59,17 @@
     }
 
     .payment__title {
-      font: 800 clamp(26px, 5vw, 62px)/1.05 'Unbounded', sans-serif;
+      font: 800 clamp(22px, 5vw, 62px)/1.05 'Unbounded', sans-serif;
       color: #f5f5ec; letter-spacing: -.01em;
       margin: 0 0 48px; text-transform: uppercase;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    @media (max-width: 700px) { .payment__title { margin-bottom: 22px; } }
+    @media (max-width: 700px) {
+      .payment__title { margin-bottom: 22px; font-size: 22px; letter-spacing: -.02em; }
+    }
+    @media (max-width: 380px) {
+      .payment__title { font-size: 19px; }
+    }
 
     .payment__card {
       display: grid;
