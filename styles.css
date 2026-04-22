@@ -3635,9 +3635,9 @@ body.is-modal-open { overflow: hidden; }
   .cases__stack.is-mobile-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
   .cases__stack.is-mobile-scroll .case-tab {
     position: relative !important;
-    flex: 0 0 86%;
+    flex: 0 0 calc(100% - 40px);
     max-width: 340px;
-    min-width: 280px;
+    min-width: 240px;
     height: auto;
     transform: none !important;
     opacity: 1 !important;
