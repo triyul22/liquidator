@@ -2866,6 +2866,7 @@ a {
   .footer__links { gap: 4px 10px; }
   .footer__copy { font-size: 12px; }
   .footer__links { flex-wrap: wrap; justify-content: center; }
+  .footer__links a::after { content: '.'; }
   .footer__disclaimer { justify-self: center; }
   .footer__brand-name { font-size: 20px; }
   .footer__descr { font-size: 14px; max-width: 100%; }
