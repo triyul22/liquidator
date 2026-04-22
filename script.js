@@ -48,50 +48,6 @@ const onScroll = () => {
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
-/* ============ АНТИ-ПРЫЖОК НА МОБИЛЕ В ФУТЕРЕ ============
-   Некоторые мобильные браузеры (в т.ч. iOS Safari) при скролле до самого низа
-   страницы могут «прыгнуть» назад из-за scroll-anchoring, динамического изменения
-   размера viewport (скрытие/показ URL-бара) или запоздалой загрузки фонтов/изображений.
-   Здесь мы фиксируем последнее известное положение пользователя при взаимодействии
-   (touchmove/wheel) и если после этого скролл уехал назад без жеста — возвращаем его. */
-(function preventBottomJump() {
-  if (!('ontouchstart' in window) && !window.matchMedia('(max-width: 900px)').matches) return;
-  let userY = window.scrollY;       // последнее положение, явно заданное пользователем
-  let gestureActive = false;        // идёт ли сейчас активный жест/колесо
-  let lastGestureTs = 0;
-  const markUser = () => {
-    gestureActive = true;
-    lastGestureTs = performance.now();
-    userY = window.scrollY;
-  };
-  const endGesture = () => {
-    gestureActive = false;
-    lastGestureTs = performance.now();
-    userY = window.scrollY;
-  };
-  window.addEventListener('touchstart', markUser, { passive: true });
-  window.addEventListener('touchmove', markUser, { passive: true });
-  window.addEventListener('touchend', endGesture, { passive: true });
-  window.addEventListener('wheel', markUser, { passive: true });
-  window.addEventListener('keydown', (e) => {
-    if (['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(e.key)) markUser();
-  }, { passive: true });
-
-  window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    // Обновляем userY, пока идёт жест или сразу после него (инерция до 250мс)
-    if (gestureActive || performance.now() - lastGestureTs < 250) {
-      userY = y;
-      return;
-    }
-    // Если без жеста скролл внезапно уехал назад более чем на 60px — восстанавливаем
-    if (userY - y > 60) {
-      window.scrollTo(0, userY);
-    } else {
-      userY = y;
-    }
-  }, { passive: true });
-})();
 
 // Mobile burger menu
 (function initBurger(){
