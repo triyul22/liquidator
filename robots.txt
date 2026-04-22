@@ -1,0 +1,35 @@
+# ВАЖНО: после привязки домена (например liquidator.ru) замените
+# строку Sitemap: ниже на абсолютный URL вашего домена, например:
+# Sitemap: https://liquidator.ru/sitemap.xml
+
+User-agent: *
+Allow: /
+Disallow: /agent-plan/
+Disallow: /loading.html
+Disallow: /article.html
+Disallow: /*?*
+Disallow: /assets/*.mp4$
+Disallow: /assets/*.webm$
+
+User-agent: Yandex
+Allow: /
+Disallow: /agent-plan/
+Disallow: /loading.html
+Disallow: /article.html
+Clean-param: v&utm_source&utm_medium&utm_campaign&utm_content&utm_term&gclid&yclid&fbclid
+
+User-agent: Googlebot
+Allow: /
+Disallow: /agent-plan/
+Disallow: /loading.html
+Disallow: /article.html
+
+# Блокируем индексацию мусорных ботов
+User-agent: SemrushBot
+Disallow: /
+User-agent: AhrefsBot
+Disallow: /
+User-agent: MJ12bot
+Disallow: /
+
+Sitemap: /sitemap.xml
