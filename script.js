@@ -581,9 +581,12 @@ if (lion) {
     });
   });
 
-  // Resize
+  // Resize — only react to width changes (ignore mobile address bar show/hide which fires height-only resizes)
   let resizeTimer = null;
+  let lastWidth = window.innerWidth;
   window.addEventListener('resize', () => {
+    if (window.innerWidth === lastWidth) return;
+    lastWidth = window.innerWidth;
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
       render();

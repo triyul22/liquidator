@@ -158,7 +158,11 @@ html, body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   overflow-anchor: none;
+  scroll-snap-type: none;
 }
+/* Isolate horizontal snap containers so page-level scroll is never affected */
+.cases__stack.is-mobile-scroll,
+.knowledge__viewport { overscroll-behavior: contain; }
 
 a {
   text-decoration: none;
