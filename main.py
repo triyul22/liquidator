@@ -25,6 +25,7 @@ from pathlib import Path
 from typing import Optional
 
 from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, field_validator
@@ -186,6 +187,22 @@ def _render_mail(payload: LeadIn, ip: str, ua: str, ts: str) -> tuple[str, str]:
   </table>
 </body></html>"""
     return html_body, text
+
+
+# ============ SECURITY: блокируем отдачу исходников и служебных файлов ============
+_BLOCKED_PATHS = {
+    "/main.py", "/requirements.txt", "/BACKEND.md", "/README.md",
+    "/.env", "/.env.example", "/.gitignore",
+}
+_BLOCKED_PREFIXES = ("/.git", "/.venv", "/venv", "/__pycache__", "/agent-plan")
+
+
+@app.middleware("http")
+async def _block_sources(request: Request, call_next):
+    p = request.url.path
+    if p in _BLOCKED_PATHS or any(p.startswith(pref) for pref in _BLOCKED_PREFIXES):
+        return Response(status_code=404)
+    return await call_next(request)
 
 
 # ============ ROUTES ============

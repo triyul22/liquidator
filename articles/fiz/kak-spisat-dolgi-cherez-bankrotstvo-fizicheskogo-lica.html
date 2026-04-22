@@ -273,6 +273,9 @@
             <input class="contacts__input" type="tel" name="phone" id="leadPhone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" required/>
           </div>
 
+          <!-- honeypot: невидимое поле, люди не заполнят, боты заполнят -->
+          <input type="text" name="_hp" id="leadHp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;"/>
+
           <label class="contacts__consent">
             <input type="checkbox" id="leadConsent" class="contacts__consent-input"/>
             <span class="contacts__checkmark" aria-hidden="true">
