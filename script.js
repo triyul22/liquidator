@@ -809,12 +809,25 @@ if (lion) {
       page_title: document.title || '',
       _hp: hpEl ? hpEl.value : ''
     };
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      credentials: 'omit'
-    });
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 20000);
+    let res;
+    try {
+      res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        credentials: 'omit',
+        signal: ctrl.signal
+      });
+    } catch (err) {
+      clearTimeout(timer);
+      if (err.name === 'AbortError') {
+        throw new Error('Сервер не отвечает. Позвоните нам или попробуйте позже.');
+      }
+      throw err;
+    }
+    clearTimeout(timer);
     let data = null;
     try { data = await res.json(); } catch (_) {}
     if (!res.ok) {
