@@ -170,7 +170,104 @@ if (lion) {
   mq.addEventListener('change', (e) => {
     applyMobileMode(e.matches);
     if (!e.matches) location.reload();
+    else initMobileInfinite();
   });
+
+  // ===== МОБИЛКА: бесконечная автопрокрутка кейсов =====
+  function initMobileInfinite() {
+    if (!mq.matches) return;
+    // Клонируем набор карточек, чтобы получить 3 копии подряд (оригинал + 2 клона)
+    if (!stack.dataset.cloned) {
+      const frag1 = document.createDocumentFragment();
+      const frag2 = document.createDocumentFragment();
+      tabs.forEach(t => { frag1.appendChild(t.cloneNode(true)); });
+      tabs.forEach(t => { frag2.appendChild(t.cloneNode(true)); });
+      stack.appendChild(frag1);
+      stack.appendChild(frag2);
+      stack.dataset.cloned = '1';
+      // Клики по клонам не должны ломать навигацию - достаточно что они визуальны
+      stack.querySelectorAll('.case-tab').forEach(el => {
+        el.querySelectorAll('.case-tab__link').forEach(a => {
+          // ссылки продолжают работать как есть
+        });
+      });
+    }
+
+    const getCopyWidth = () => {
+      const cards = [...stack.children].slice(0, N);
+      if (!cards.length) return 0;
+      const first = cards[0].getBoundingClientRect();
+      const last = cards[cards.length - 1].getBoundingClientRect();
+      const gap = parseFloat(getComputedStyle(stack).gap) || 0;
+      return (last.right - first.left) + gap;
+    };
+
+    // Старт в середине (начало 2-й копии)
+    const jumpToMiddle = () => {
+      const w = getCopyWidth();
+      // отключаем snap, чтобы прыжок не дёргал
+      const prevSnap = stack.style.scrollSnapType;
+      stack.style.scrollSnapType = 'none';
+      stack.scrollLeft = w;
+      requestAnimationFrame(() => { stack.style.scrollSnapType = prevSnap || ''; });
+    };
+    // Ждём layout
+    requestAnimationFrame(jumpToMiddle);
+    setTimeout(jumpToMiddle, 300);
+
+    // Бесконечный цикл: при пересечении границ перекидываем на середину
+    stack.addEventListener('scroll', () => {
+      const w = getCopyWidth();
+      if (!w) return;
+      if (stack.scrollLeft < w * 0.25) {
+        const prev = stack.style.scrollSnapType;
+        stack.style.scrollSnapType = 'none';
+        stack.scrollLeft += w;
+        requestAnimationFrame(() => { stack.style.scrollSnapType = prev || ''; });
+      } else if (stack.scrollLeft > w * 1.75) {
+        const prev = stack.style.scrollSnapType;
+        stack.style.scrollSnapType = 'none';
+        stack.scrollLeft -= w;
+        requestAnimationFrame(() => { stack.style.scrollSnapType = prev || ''; });
+      }
+    }, { passive: true });
+
+    // Автоскролл: плавное движение rAF
+    let rafId = null;
+    let paused = false;
+    let lastTs = 0;
+    const SPEED = 28; // px/сек
+    const tick = (ts) => {
+      if (!lastTs) lastTs = ts;
+      const dt = (ts - lastTs) / 1000;
+      lastTs = ts;
+      if (!paused && document.visibilityState === 'visible') {
+        const prev = stack.style.scrollSnapType;
+        if (prev !== 'none') stack.style.scrollSnapType = 'none';
+        stack.scrollLeft += SPEED * dt;
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+
+    // Пауза при касании / колесе
+    let resumeTimer = null;
+    const pause = () => {
+      paused = true;
+      clearTimeout(resumeTimer);
+    };
+    const scheduleResume = () => {
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(() => { paused = false; lastTs = 0; }, 2500);
+    };
+    stack.addEventListener('touchstart', pause, { passive: true });
+    stack.addEventListener('touchend', scheduleResume, { passive: true });
+    stack.addEventListener('touchcancel', scheduleResume, { passive: true });
+    stack.addEventListener('wheel', () => { pause(); scheduleResume(); }, { passive: true });
+    document.addEventListener('visibilitychange', () => { lastTs = 0; });
+  }
+
+  initMobileInfinite();
   if (mq.matches) return; // Bail out of 3D-stack behavior on mobile
   let active = Math.max(0, tabs.findIndex(t => t.classList.contains('is-active')));
   if (active < 0) active = 0;
