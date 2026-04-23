@@ -28,6 +28,14 @@
     };
     const retryEvents = ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough'];
     retryEvents.forEach(ev => heroVideo.addEventListener(ev, () => { tryPlay().catch(() => {}); }, { once: true }));
+    heroVideo.addEventListener('ended', () => {
+      try {
+        if (isFinite(heroVideo.duration)) {
+          heroVideo.currentTime = Math.max(0, heroVideo.duration - 0.05);
+        }
+        heroVideo.pause();
+      } catch(e) {}
+    });
     try { heroVideo.load(); } catch(e) {}
     tryPlay().catch(() => { bindGesture(); });
     document.addEventListener('visibilitychange', () => {
