@@ -11,6 +11,3 @@ Thumbs.db
 # служебные папки - только локально
 .claude/
 agent-plan/
-
-# исходник видео (залит на Cloudinary)
-assets/0420.mp4
