@@ -319,13 +319,33 @@
       <div class="hero__side hero__side--light"></div>
     </div>
 
+    <video
+      class="hero__lion"
+      id="heroLion"
+      muted
+      playsinline
+      autoplay
+      preload="auto"
+      poster="assets/lion-poster.webp"
+    >
+      <source src="assets/0420_opt.mp4" type="video/mp4">
+    </video>
     <script>
       (function(){
-        var isMobile = window.matchMedia('(max-width: 768px)').matches;
-        if (isMobile) {
-          document.write('<img class="hero__lion" id="heroLion" src="assets/0420_mobile.webp" alt="" aria-hidden="true" decoding="async" fetchpriority="high">');
-        } else {
-          document.write('<video class="hero__lion" id="heroLion" muted playsinline autoplay preload="auto" poster="assets/lion-poster.webp"><source src="assets/0420.mp4" type="video/mp4"></video>');
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          var v = document.getElementById('heroLion');
+          if (v) {
+            try { v.pause(); v.removeAttribute('src'); v.load(); } catch(e) {}
+            var img = new Image();
+            img.className = v.className;
+            img.id = v.id;
+            img.src = 'assets/0420_mobile.webp';
+            img.alt = '';
+            img.setAttribute('aria-hidden', 'true');
+            img.decoding = 'async';
+            img.fetchPriority = 'high';
+            v.replaceWith(img);
+          }
         }
       })();
     </script>
