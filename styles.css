@@ -3856,3 +3856,140 @@ body.is-modal-open { overflow: hidden; }
     gap: 2px;
   }
 }
+
+/* ============ МОБИЛКА: ПОДВАЛ + КУКИ + HERO (общие для всех страниц) ============ */
+@media (max-width: 1024px) {
+  .footer__col--business .footer__biz { gap: 0 !important; row-gap: 0 !important; display: block !important; }
+  .footer__col--business .footer__biz li {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    border: none !important;
+    line-height: 1 !important;
+  }
+  .footer__col--business .footer__biz li + li { margin-top: 14px !important; }
+  .hero__content { padding-top: 48vh !important; }
+
+  /* Компактный cookie-баннер на мобиле */
+  .cookie-banner { left: 10px !important; right: 10px !important; bottom: 10px !important; }
+  .cookie-banner__inner {
+    display: grid !important;
+    grid-template-columns: auto 1fr !important;
+    grid-template-areas: "icon title" "desc desc" "actions actions" !important;
+    align-items: center !important;
+    gap: 6px 10px !important;
+    padding: 10px 12px !important;
+    border-radius: 14px !important;
+  }
+  .cookie-banner__icon {
+    grid-area: icon !important;
+    width: 28px !important;
+    height: 28px !important;
+    flex: 0 0 28px !important;
+    border-radius: 8px !important;
+  }
+  .cookie-banner__icon svg { width: 16px !important; height: 16px !important; }
+  .cookie-banner__text { display: contents !important; }
+  .cookie-banner__text strong {
+    grid-area: title !important;
+    font-size: 13px !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1.1 !important;
+    margin: 0 !important;
+  }
+  .cookie-banner__text > span {
+    grid-area: desc !important;
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+    margin: 0 !important;
+  }
+  .cookie-banner__actions {
+    grid-area: actions !important;
+    width: 100% !important;
+    gap: 8px !important;
+    justify-content: space-between !important;
+    margin-top: 2px !important;
+  }
+  .cookie-banner__link {
+    font-size: 10px !important;
+    padding: 6px 10px !important;
+    letter-spacing: 0.08em !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+  .cookie-banner__btn {
+    font-size: 11px !important;
+    padding: 8px 16px !important;
+    letter-spacing: 0.08em !important;
+    min-height: 0 !important;
+    height: auto !important;
+    flex: 0 1 auto !important;
+  }
+  .footer__col--business .footer__biz-role {
+    display: block !important;
+    font-size: 11px !important;
+    line-height: 1.15 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    white-space: nowrap !important;
+  }
+  .footer__col--business .footer__biz-role br { display: none !important; }
+  .footer__col--business .footer__biz-mail {
+    display: block !important;
+    font-size: 11px !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+  .footer__col--business .footer__col-title {
+    margin: 0 0 4px !important;
+    padding: 0 0 2px !important;
+    min-height: 0 !important;
+  }
+  .footer__bottom {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0 !important;
+    padding: 8px 0 0 !important;
+    margin-top: 8px !important;
+    margin-bottom: 0 !important;
+    text-align: center !important;
+  }
+  .footer__bottom > * { margin: 0 !important; padding: 0 !important; }
+  .footer__copy,
+  .footer__links,
+  .footer__links a,
+  .footer__disclaimer,
+  .footer__disclaimer span {
+    font-size: 9px !important;
+    line-height: 1 !important;
+    color: rgba(255,255,255,0.5) !important;
+  }
+  .footer__links {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0 6px !important;
+  }
+  .footer__disclaimer {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+  }
+  .footer__disclaimer svg { width: 9px !important; height: 9px !important; flex-shrink: 0 !important; }
+  .footer__disclaimer br { display: none !important; }
+  .footer { padding-bottom: 8px !important; }
+  .footer__bottom a,
+  .footer__links a,
+  .footer__disclaimer a {
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
