@@ -28,6 +28,7 @@ from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from pydantic import BaseModel, Field, field_validator
 
 # Локально подхватываем .env (на Timeweb переменные идут из ENV приложения)
@@ -75,6 +76,30 @@ if ALLOWED_ORIGIN != "same-origin":
         allow_methods=["GET", "POST"],
         allow_headers=["Content-Type"],
     )
+
+# Gzip-сжатие всех ответов > 500 байт (HTML, CSS, JS, JSON, SVG сжимаются в 4-5 раз)
+app.add_middleware(GZipMiddleware, minimum_size=500, compresslevel=6)
+
+
+# Cache-Control заголовки для статики (кэш в браузере, чтобы повторные заходы были мгновенными)
+_CACHE_IMMUTABLE_EXT = (".webp", ".jpg", ".jpeg", ".png", ".svg", ".ico",
+                         ".mp4", ".webm", ".woff", ".woff2", ".ttf", ".otf")
+_CACHE_MEDIUM_EXT = (".css", ".js")
+
+
+@app.middleware("http")
+async def _cache_headers(request: Request, call_next):
+    response = await call_next(request)
+    path = request.url.path.lower()
+    if path.endswith(_CACHE_IMMUTABLE_EXT):
+        response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+    elif path.endswith(_CACHE_MEDIUM_EXT):
+        response.headers["Cache-Control"] = "public, max-age=2592000"
+    elif path.endswith(".html") or path == "/" or path.endswith("/"):
+        response.headers["Cache-Control"] = "public, max-age=3600, must-revalidate"
+    elif path.endswith(".json"):
+        response.headers["Cache-Control"] = "public, max-age=3600"
+    return response
 
 
 # ============ MODELS ============
