@@ -96,7 +96,6 @@
   }
   </script>
 
-  <link rel="preload" href="/assets/0420_mobile.webp" as="image" type="image/webp" media="(max-width: 768px)" fetchpriority="high">
   <link rel="preload" href="/assets/fonts/cormorant-garamond-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-500.woff2" as="font" type="font/woff2" crossorigin>
   <style>
@@ -328,27 +327,9 @@
       preload="auto"
       poster="assets/lion-poster.webp"
     >
+      <source media="(max-width: 768px)" src="assets/0420_mobile.mp4" type="video/mp4">
       <source src="assets/0420_opt.mp4" type="video/mp4">
     </video>
-    <script>
-      (function(){
-        if (window.matchMedia('(max-width: 768px)').matches) {
-          var v = document.getElementById('heroLion');
-          if (v) {
-            try { v.pause(); v.removeAttribute('src'); v.load(); } catch(e) {}
-            var img = new Image();
-            img.className = v.className;
-            img.id = v.id;
-            img.src = 'assets/0420_mobile.webp';
-            img.alt = '';
-            img.setAttribute('aria-hidden', 'true');
-            img.decoding = 'async';
-            img.fetchPriority = 'high';
-            v.replaceWith(img);
-          }
-        }
-      })();
-    </script>
 
     <div class="hero__content">
       <h1 class="hero__title">
