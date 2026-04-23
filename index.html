@@ -318,18 +318,16 @@
       <div class="hero__side hero__side--light"></div>
     </div>
 
-    <video
-      class="hero__lion"
-      id="heroLion"
-      muted
-      playsinline
-      autoplay
-      preload="auto"
-      poster="assets/lion-poster.webp"
-    >
-      <source media="(max-width: 768px)" src="assets/0420_mobile.mp4" type="video/mp4">
-      <source src="assets/0420.mp4" type="video/mp4">
-    </video>
+    <script>
+      (function(){
+        var isMobile = window.matchMedia('(max-width: 768px)').matches;
+        if (isMobile) {
+          document.write('<img class="hero__lion" id="heroLion" src="assets/0420_mobile.webp" alt="" aria-hidden="true">');
+        } else {
+          document.write('<video class="hero__lion" id="heroLion" muted playsinline autoplay preload="auto" poster="assets/lion-poster.webp"><source src="assets/0420.mp4" type="video/mp4"></video>');
+        }
+      })();
+    </script>
 
     <div class="hero__content">
       <h1 class="hero__title">
