@@ -4,27 +4,34 @@
 
   document.body.style.overflow = 'hidden';
 
+  function kickHeroVideo() {
+    const heroVideo = document.getElementById('heroLion');
+    if (!heroVideo || typeof heroVideo.play !== 'function') return;
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+    const tryPlay = () => {
+      const p = heroVideo.play();
+      return (p && typeof p.then === 'function') ? p : Promise.resolve();
+    };
+    tryPlay().catch(() => {
+      const resumeOnGesture = () => {
+        tryPlay().catch(() => {});
+        ['touchstart', 'click', 'scroll', 'keydown'].forEach(ev =>
+          window.removeEventListener(ev, resumeOnGesture, { capture: true })
+        );
+      };
+      ['touchstart', 'click', 'scroll', 'keydown'].forEach(ev =>
+        window.addEventListener(ev, resumeOnGesture, { capture: true, passive: true })
+      );
+    });
+  }
+
+  kickHeroVideo();
+
   function hideLoader() {
     loader.classList.add('is-hidden');
     document.body.style.overflow = '';
-    const heroVideo = document.getElementById('heroLion');
-    if (heroVideo && typeof heroVideo.play === 'function') {
-      const tryPlay = () => {
-        const p = heroVideo.play();
-        return (p && typeof p.then === 'function') ? p : Promise.resolve();
-      };
-      tryPlay().catch(() => {
-        const resumeOnGesture = () => {
-          tryPlay().catch(() => {});
-          ['touchstart', 'click', 'scroll', 'keydown'].forEach(ev =>
-            window.removeEventListener(ev, resumeOnGesture, { capture: true })
-          );
-        };
-        ['touchstart', 'click', 'scroll', 'keydown'].forEach(ev =>
-          window.addEventListener(ev, resumeOnGesture, { capture: true, passive: true, once: false })
-        );
-      });
-    }
+    kickHeroVideo();
     setTimeout(() => loader.remove(), 600);
   }
 
