@@ -9,20 +9,29 @@
     if (!heroVideo || typeof heroVideo.play !== 'function') return;
     heroVideo.muted = true;
     heroVideo.defaultMuted = true;
+    heroVideo.setAttribute('muted', '');
+    heroVideo.setAttribute('playsinline', '');
+    heroVideo.playsInline = true;
+    let played = false;
     const tryPlay = () => {
+      if (played && !heroVideo.paused) return Promise.resolve();
       const p = heroVideo.play();
-      return (p && typeof p.then === 'function') ? p : Promise.resolve();
+      return (p && typeof p.then === 'function') ? p.then(() => { played = true; }) : Promise.resolve();
     };
-    tryPlay().catch(() => {
+    const bindGesture = () => {
+      const events = ['touchstart', 'touchend', 'click', 'scroll', 'keydown', 'pointerdown'];
       const resumeOnGesture = () => {
         tryPlay().catch(() => {});
-        ['touchstart', 'click', 'scroll', 'keydown'].forEach(ev =>
-          window.removeEventListener(ev, resumeOnGesture, { capture: true })
-        );
+        events.forEach(ev => window.removeEventListener(ev, resumeOnGesture, { capture: true }));
       };
-      ['touchstart', 'click', 'scroll', 'keydown'].forEach(ev =>
-        window.addEventListener(ev, resumeOnGesture, { capture: true, passive: true })
-      );
+      events.forEach(ev => window.addEventListener(ev, resumeOnGesture, { capture: true, passive: true }));
+    };
+    const retryEvents = ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough'];
+    retryEvents.forEach(ev => heroVideo.addEventListener(ev, () => { tryPlay().catch(() => {}); }, { once: true }));
+    try { heroVideo.load(); } catch(e) {}
+    tryPlay().catch(() => { bindGesture(); });
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && heroVideo.paused) tryPlay().catch(() => {});
     });
   }
 
