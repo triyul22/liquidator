@@ -72,6 +72,15 @@
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
+# --- 4.5. 301-редиректы со старых категорийных страниц ---
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^category/fiz\.html$   /category/all.html?cat=fiz   [R=301,L,QSA]
+  RewriteRule ^category/yur\.html$   /category/all.html?cat=yur   [R=301,L,QSA]
+  RewriteRule ^category/vzysk\.html$ /category/all.html?cat=vzysk [R=301,L,QSA]
+  RewriteRule ^category/news\.html$  /category/all.html?cat=news  [R=301,L,QSA]
+</IfModule>
+
 # --- 5. Правильные MIME-типы ---
 <IfModule mod_mime.c>
   AddType image/webp .webp
