@@ -1,3 +1,37 @@
+/* Fallback шрифты с подогнанными метриками - подменяются на Google Fonts без видимого скачка */
+@font-face {
+  font-family: 'Manrope Fallback';
+  src: local('Arial');
+  size-adjust: 100.4%;
+  ascent-override: 103%;
+  descent-override: 27.5%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Unbounded Fallback';
+  src: local('Arial');
+  size-adjust: 111%;
+  ascent-override: 85%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Onest Fallback';
+  src: local('Arial');
+  size-adjust: 99%;
+  ascent-override: 97%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Cormorant Fallback';
+  src: local('Times New Roman');
+  size-adjust: 90%;
+  ascent-override: 103%;
+  descent-override: 33%;
+  line-gap-override: 0%;
+}
+
 :root {
   --dark: #0a0d12;
   --dark-2: #141922;
@@ -11,8 +45,8 @@
   --muted-light: rgba(255, 255, 255, 0.78);
   --muted-dark: rgba(15, 17, 21, 0.72);
 
-  --font-display: 'Unbounded', sans-serif;
-  --font-body: 'Manrope', sans-serif;
+  --font-display: 'Unbounded', 'Unbounded Fallback', sans-serif;
+  --font-body: 'Manrope', 'Manrope Fallback', sans-serif;
 
   --split: 42%;
 }
@@ -82,7 +116,7 @@
   border-radius: 16px;
   background: var(--khaki);
   color: #f0ede6;
-  font-family: 'Unbounded', sans-serif;
+  font-family: 'Unbounded', 'Unbounded Fallback', sans-serif;
   font-weight: 700;
   font-size: clamp(28px, 2.8vw, 56px);
   display: flex;
@@ -99,7 +133,7 @@
 }
 
 .loader__title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Cormorant Garamond', 'Cormorant Fallback', serif;
   font-weight: 700;
   font-size: clamp(26px, 2vw, 44px);
   line-height: 1;
@@ -109,7 +143,7 @@
 }
 
 .loader__subtitle {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Manrope', 'Manrope Fallback', sans-serif;
   font-weight: 500;
   font-size: clamp(12px, 0.95vw, 18px);
   letter-spacing: 0.14em;
@@ -144,7 +178,7 @@
 
 .loader__hint {
   align-self: center;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Manrope', 'Manrope Fallback', sans-serif;
   font-size: 11px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
@@ -585,7 +619,7 @@ a {
   gap: 30px;
   padding: 0 30px;
   white-space: nowrap;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Cormorant Garamond', 'Cormorant Fallback', serif;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -725,7 +759,7 @@ a {
 .feature__text { min-width: 0; flex: 1; }
 
 .feature__title {
-  font-family: 'Onest', var(--font-display);
+  font-family: 'Onest', 'Onest Fallback', var(--font-display);
   font-weight: 700;
   font-size: 21px;
   letter-spacing: -0.01em;
@@ -735,7 +769,7 @@ a {
 }
 
 .feature__desc {
-  font-family: 'Onest', var(--font-body);
+  font-family: 'Onest', 'Onest Fallback', var(--font-body);
   font-weight: 400;
   font-size: 20px;
   line-height: 1.4;
@@ -1691,7 +1725,7 @@ a {
 }
 
 .services__step-title {
-  font-family: 'Onest', var(--font-display);
+  font-family: 'Onest', 'Onest Fallback', var(--font-display);
   font-weight: 700;
   font-size: clamp(19px, 1.25vw, 21px);
   letter-spacing: -0.01em;
@@ -1701,7 +1735,7 @@ a {
 }
 
 .services__step-desc {
-  font-family: 'Onest', var(--font-body);
+  font-family: 'Onest', 'Onest Fallback', var(--font-body);
   font-weight: 400;
   font-size: clamp(17px, 1.05vw, 18px);
   color: #7a7060;
@@ -1774,7 +1808,7 @@ a {
 }
 
 .services__cta-heading {
-  font-family: 'Onest', var(--font-display);
+  font-family: 'Onest', 'Onest Fallback', var(--font-display);
   font-weight: 700;
   font-size: 21px;
   letter-spacing: -0.01em;
@@ -1782,7 +1816,7 @@ a {
 }
 
 .services__cta-sub {
-  font-family: 'Onest', var(--font-body);
+  font-family: 'Onest', 'Onest Fallback', var(--font-body);
   font-weight: 400;
   font-size: 20px;
   line-height: 1.4;
@@ -2247,7 +2281,7 @@ a {
   margin-bottom: 14px;
 }
 .k-card__title {
-  font-family: 'Onest', var(--font-display);
+  font-family: 'Onest', 'Onest Fallback', var(--font-display);
   font-weight: 700;
   font-size: 20px;
   letter-spacing: -0.01em;
@@ -2256,7 +2290,7 @@ a {
   line-height: 1.28;
 }
 .k-card__desc {
-  font-family: 'Onest', var(--font-body);
+  font-family: 'Onest', 'Onest Fallback', var(--font-body);
   font-weight: 400;
   font-size: 15px;
   color: #7a7060;
@@ -2279,7 +2313,7 @@ a {
   border: 1px solid #6b7a2e;
   border-radius: 7px;
   padding: 5px 10px;
-  font-family: 'Onest', var(--font-body);
+  font-family: 'Onest', 'Onest Fallback', var(--font-body);
   font-size: 14px;
   color: #6b7a2e;
   white-space: nowrap;
@@ -2529,11 +2563,11 @@ a {
 .footer__cta-icon svg { width: 28px; height: 28px; }
 .footer__cta-text { display: flex; flex-direction: column; gap: 4px; }
 .footer__cta-text strong {
-  font-family: 'Onest', var(--font-display);
+  font-family: 'Onest', 'Onest Fallback', var(--font-display);
   font-size: 19px; font-weight: 700; color: #fff;
 }
 .footer__cta-text span {
-  font-family: 'Onest', var(--font-body);
+  font-family: 'Onest', 'Onest Fallback', var(--font-body);
   font-size: 16px; color: rgba(255,255,255,0.55);
   line-height: 1.5; max-width: 560px;
 }
@@ -2599,7 +2633,7 @@ a {
   line-height: 1.4;
 }
 .footer__descr {
-  font-family: 'Onest', var(--font-body);
+  font-family: 'Onest', 'Onest Fallback', var(--font-body);
   font-size: 16px; color: rgba(255,255,255,0.55);
   line-height: 1.55; margin: 0 0 26px; max-width: 420px;
 }
@@ -2642,7 +2676,7 @@ a {
   font-size: 11px; color: #f4f1e6; letter-spacing: 0.1em; text-transform: uppercase;
 }
 .footer__badge-text span {
-  font-family: 'Onest', var(--font-body); font-weight: 300;
+  font-family: 'Onest', 'Onest Fallback', var(--font-body); font-weight: 300;
   font-size: 9px; color: rgba(240, 237, 230, 0.85); line-height: 1.4;
 }
 
@@ -2669,7 +2703,7 @@ a {
 }
 .footer__list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
 .footer__list--plain li {
-  font-family: 'Onest', var(--font-body);
+  font-family: 'Onest', 'Onest Fallback', var(--font-body);
   font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.5;
 }
 .footer__list--plain li:first-child {
@@ -2716,7 +2750,7 @@ a {
   font-family: var(--font-display); font-weight: 700;
   font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
 }
-.footer__pay-text span { font-family: 'Onest', var(--font-body); font-weight: 300; font-size: 9px; opacity: 0.85; }
+.footer__pay-text span { font-family: 'Onest', 'Onest Fallback', var(--font-body); font-weight: 300; font-size: 9px; opacity: 0.85; }
 .footer__pay-arrow { width: 12px; height: 12px; flex-shrink: 0; position: relative; z-index: 1; color: #f0ede6; }
 
 .footer__contact {
@@ -2741,11 +2775,11 @@ a {
 .footer__contact-icon svg { width: 22px; height: 22px; }
 .footer__contact-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .footer__contact-text strong {
-  font-family: 'Onest', var(--font-display);
+  font-family: 'Onest', 'Onest Fallback', var(--font-display);
   font-weight: 700; font-size: 19px; color: #fff; line-height: 1.3;
 }
 .footer__contact-text > span {
-  font-family: 'Onest', var(--font-body);
+  font-family: 'Onest', 'Onest Fallback', var(--font-body);
   font-size: 13px; color: rgba(255,255,255,0.5);
 }
 
@@ -2775,11 +2809,11 @@ a {
 }
 .footer__biz li:last-child { border-bottom: none; padding-bottom: 0; }
 .footer__biz-role {
-  font-family: 'Onest', var(--font-display);
+  font-family: 'Onest', 'Onest Fallback', var(--font-display);
   font-weight: 700; font-size: 19px; color: #fff; line-height: 1.3;
 }
 .footer__biz-mail {
-  font-family: 'Onest', var(--font-body);
+  font-family: 'Onest', 'Onest Fallback', var(--font-body);
   font-size: 16px; color: rgba(255,255,255,0.6);
   text-decoration: none; width: fit-content;
   transition: color 0.2s;
@@ -2794,7 +2828,7 @@ a {
   padding-top: 26px;
 }
 .footer__copy {
-  font-family: 'Onest', var(--font-body);
+  font-family: 'Onest', 'Onest Fallback', var(--font-body);
   font-size: 13px; color: rgba(255,255,255,0.4);
   margin: 0; line-height: 1.5;
 }
@@ -2802,7 +2836,7 @@ a {
   display: flex; gap: 28px; justify-content: center;
 }
 .footer__links a {
-  font-family: 'Onest', var(--font-body);
+  font-family: 'Onest', 'Onest Fallback', var(--font-body);
   font-size: 13px; color: rgba(255,255,255,0.45);
   text-decoration: none; transition: color 0.2s;
 }
@@ -2810,7 +2844,7 @@ a {
 .footer__disclaimer {
   display: flex; align-items: center; gap: 10px;
   justify-self: end;
-  font-family: 'Onest', var(--font-body);
+  font-family: 'Onest', 'Onest Fallback', var(--font-body);
   font-size: 12px; color: rgba(255,255,255,0.4);
   margin: 0; line-height: 1.45;
 }
@@ -3088,7 +3122,7 @@ a {
   border: 0;
   outline: none;
   color: #f5efe0;
-  font-family: 'Onest', var(--font-body);
+  font-family: 'Onest', 'Onest Fallback', var(--font-body);
   font-size: 16px;
   font-weight: 300;
   letter-spacing: 0.005em;
