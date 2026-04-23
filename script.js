@@ -9,8 +9,21 @@
     document.body.style.overflow = '';
     const heroVideo = document.getElementById('heroLion');
     if (heroVideo && typeof heroVideo.play === 'function') {
-      const p = heroVideo.play();
-      if (p && typeof p.catch === 'function') p.catch(() => {});
+      const tryPlay = () => {
+        const p = heroVideo.play();
+        return (p && typeof p.then === 'function') ? p : Promise.resolve();
+      };
+      tryPlay().catch(() => {
+        const resumeOnGesture = () => {
+          tryPlay().catch(() => {});
+          ['touchstart', 'click', 'scroll', 'keydown'].forEach(ev =>
+            window.removeEventListener(ev, resumeOnGesture, { capture: true })
+          );
+        };
+        ['touchstart', 'click', 'scroll', 'keydown'].forEach(ev =>
+          window.addEventListener(ev, resumeOnGesture, { capture: true, passive: true, once: false })
+        );
+      });
     }
     setTimeout(() => loader.remove(), 600);
   }
