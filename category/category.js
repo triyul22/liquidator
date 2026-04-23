@@ -110,7 +110,6 @@
       cat = next;
       page = 1;
       writeUrl({ push: true });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
       render();
     });
   }
