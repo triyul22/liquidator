@@ -327,9 +327,33 @@
       preload="auto"
       poster="assets/lion-poster.webp"
     >
-      <source media="(max-width: 768px)" src="assets/0420_mobile.mp4" type="video/mp4">
       <source src="assets/0420_opt.mp4" type="video/mp4">
     </video>
+    <script>
+      (function(){
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          var v = document.getElementById('heroLion');
+          if (v) {
+            try { v.pause(); v.removeAttribute('src'); v.load(); } catch(e) {}
+            var picture = document.createElement('picture');
+            var avif = document.createElement('source');
+            avif.type = 'image/avif';
+            avif.srcset = 'assets/0420_mobile.avif';
+            var img = new Image();
+            img.className = v.className;
+            img.id = v.id;
+            img.src = 'assets/0420_mobile.webp';
+            img.alt = '';
+            img.setAttribute('aria-hidden', 'true');
+            img.decoding = 'async';
+            img.fetchPriority = 'high';
+            picture.appendChild(avif);
+            picture.appendChild(img);
+            v.replaceWith(picture);
+          }
+        }
+      })();
+    </script>
 
     <div class="hero__content">
       <h1 class="hero__title">
