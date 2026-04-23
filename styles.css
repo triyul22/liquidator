@@ -162,7 +162,7 @@ html, body {
 }
 /* Isolate horizontal snap containers so page-level scroll is never affected */
 .cases__stack.is-mobile-scroll,
-.knowledge__viewport { overscroll-behavior: contain; }
+.knowledge__viewport { overscroll-behavior-x: contain; overscroll-behavior-y: auto; }
 
 a {
   text-decoration: none;
@@ -619,7 +619,7 @@ a {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image: url('assets/cases-bg.jpg');
+  background-image: url('assets/cases-bg.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

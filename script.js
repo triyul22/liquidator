@@ -651,6 +651,24 @@ if (lion) {
   nextBtn.addEventListener('click', () => move(+1));
   prevBtn.addEventListener('click', () => move(-1));
 
+  // Wheel: horizontal trackpad swipes or shift+wheel move the carousel.
+  // Pure vertical wheel is left alone so the page scrolls normally.
+  let wheelCooldown = 0;
+  viewport.addEventListener('wheel', (e) => {
+    if (window.matchMedia('(max-width: 900px)').matches) return;
+    const absX = Math.abs(e.deltaX);
+    const absY = Math.abs(e.deltaY);
+    const horizontalIntent = absX > absY || e.shiftKey;
+    if (!horizontalIntent) return;
+    e.preventDefault();
+    const now = performance.now();
+    if (now - wheelCooldown < 350) return;
+    const delta = e.shiftKey ? e.deltaY : e.deltaX;
+    if (Math.abs(delta) < 4) return;
+    wheelCooldown = now;
+    move(delta > 0 ? +1 : -1);
+  }, { passive: false });
+
   // Keyboard
   slider.tabIndex = 0;
   slider.addEventListener('keydown', (e) => {
