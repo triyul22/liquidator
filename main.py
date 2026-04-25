@@ -14,7 +14,9 @@ from __future__ import annotations
 import os
 import re
 import time
+import json
 import html
+import secrets
 import smtplib
 import logging
 from collections import defaultdict, deque
@@ -24,11 +26,12 @@ from email.utils import formataddr
 from pathlib import Path
 from typing import Optional
 
-from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import Response
+from fastapi import FastAPI, Request, HTTPException, Depends
+from fastapi.responses import Response, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from pydantic import BaseModel, Field, field_validator
 
 # Локально подхватываем .env (на Timeweb переменные идут из ENV приложения)
@@ -55,6 +58,15 @@ MAIL_FROM_NAME = os.getenv("MAIL_FROM_NAME", "Сайт ЛИКВИДАТОР")
 ALLOWED_ORIGIN = os.getenv("ALLOWED_ORIGIN", "same-origin")
 
 RATE_LIMIT_PER_HOUR = int(os.getenv("RATE_LIMIT_PER_HOUR", "3"))
+
+# Preview-роут для черновиков SEO-конвейера. Если переменные не заданы - роут отключён (404).
+PREVIEW_USER = os.getenv("PREVIEW_USER", "")
+PREVIEW_PASSWORD = os.getenv("PREVIEW_PASSWORD", "")
+DRAFTS_DIR = ROOT / "drafts"
+# Репо на GitHub: используется для кнопки "Править на GitHub" в /preview/.
+# Формат: "owner/repo" (например, "triyul22/liquidator"). Ветка - GITHUB_BRANCH (по умолчанию main).
+GITHUB_REPO = os.getenv("GITHUB_REPO", "triyul22/liquidator")
+GITHUB_BRANCH = os.getenv("GITHUB_BRANCH", "main")
 
 logging.basicConfig(
     level=logging.INFO,
@@ -238,7 +250,10 @@ _BLOCKED_PATHS = {
     "/main.py", "/requirements.txt", "/BACKEND.md", "/README.md",
     "/.env", "/.env.example", "/.gitignore",
 }
-_BLOCKED_PREFIXES = ("/.git", "/.venv", "/venv", "/__pycache__", "/agent-plan")
+_BLOCKED_PREFIXES = (
+    "/.git", "/.venv", "/venv", "/__pycache__", "/agent-plan",
+    "/.claude", "/data", "/drafts", "/tools",  # SEO-конвейер: только через /preview
+)
 
 
 @app.middleware("http")
@@ -293,6 +308,187 @@ async def create_lead(payload: LeadIn, request: Request):
 
     log.info("lead sent name=%r phone=%r ip=%s", payload.name, payload.phone, ip)
     return {"ok": True}
+
+
+# ============ PREVIEW (черновики SEO-конвейера) ============
+# Доступ через Basic Auth. Логин/пароль - в PREVIEW_USER / PREVIEW_PASSWORD (ENV).
+# Все ответы получают X-Robots-Tag: noindex, чтобы не попасть в поисковики.
+_basic_auth = HTTPBasic(realm="LIKVIDATOR preview")
+
+
+def _check_preview_auth(credentials: HTTPBasicCredentials = Depends(_basic_auth)) -> str:
+    if not (PREVIEW_USER and PREVIEW_PASSWORD):
+        raise HTTPException(status_code=503, detail="Preview не настроен (нет PREVIEW_USER/PREVIEW_PASSWORD)")
+    user_ok = secrets.compare_digest(credentials.username.encode(), PREVIEW_USER.encode())
+    pass_ok = secrets.compare_digest(credentials.password.encode(), PREVIEW_PASSWORD.encode())
+    if not (user_ok and pass_ok):
+        raise HTTPException(
+            status_code=401,
+            detail="Неверный логин или пароль",
+            headers={"WWW-Authenticate": 'Basic realm="LIKVIDATOR preview"'},
+        )
+    return credentials.username
+
+
+def _safe_slug(slug: str) -> str:
+    if not re.fullmatch(r"[a-z0-9][a-z0-9-]{1,200}", slug or ""):
+        raise HTTPException(status_code=400, detail="Некорректный slug")
+    return slug
+
+
+def _list_drafts() -> list[dict]:
+    if not DRAFTS_DIR.exists():
+        return []
+    items = []
+    for sub in sorted(DRAFTS_DIR.iterdir()):
+        if not sub.is_dir() or sub.name.startswith("_"):
+            continue
+        article_html = sub / "article.html"
+        meta_path = sub / "meta.json"
+        if not article_html.exists():
+            continue
+        meta = {}
+        if meta_path.exists():
+            try:
+                meta = json.loads(meta_path.read_text(encoding="utf-8"))
+            except Exception:
+                meta = {}
+        items.append({
+            "slug": sub.name,
+            "category": meta.get("category", "?"),
+            "title": meta.get("title") or meta.get("h1") or sub.name,
+            "h1": meta.get("h1", ""),
+            "description": meta.get("description", ""),
+            "factcheck_passed": meta.get("factcheck_passed"),
+            "text_chars": meta.get("text_chars"),
+            "text_words": meta.get("text_words"),
+            "updated_at": time.strftime("%Y-%m-%d %H:%M", time.localtime(article_html.stat().st_mtime)),
+        })
+    items.sort(key=lambda x: x["updated_at"], reverse=True)
+    return items
+
+
+_PREVIEW_INDEX_TPL = """<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>ЛИКВИДАТОР - черновики</title>
+<style>
+  body{{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:1100px;margin:0 auto;padding:32px 24px;color:#222;background:#fafaf7}}
+  h1{{margin:0 0 8px;font-size:28px;color:#3a4118}}
+  .lead{{color:#666;margin:0 0 24px;font-size:14px}}
+  .lead b{{color:#b85c00}}
+  table{{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e6e3da;border-radius:8px;overflow:hidden}}
+  th,td{{padding:12px 14px;text-align:left;border-bottom:1px solid #efece4;font-size:14px;vertical-align:top}}
+  th{{background:#f3f0e7;color:#5b6236;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em}}
+  tr:last-child td{{border-bottom:none}}
+  tr:hover td{{background:#fcfaf2}}
+  .slug{{font-family:ui-monospace,Menlo,Consolas,monospace;color:#5b6236;font-size:13px}}
+  .cat{{display:inline-block;padding:2px 8px;border-radius:10px;background:#eef0e0;color:#5b6236;font-size:12px;font-weight:600}}
+  .ok{{color:#3a8a2a;font-weight:600}}
+  .fail{{color:#b00;font-weight:600}}
+  .meta{{color:#888;font-size:12px;margin-top:4px}}
+  a.title{{color:#222;text-decoration:none;font-weight:600}}
+  a.title:hover{{color:#5b6236;text-decoration:underline}}
+  .empty{{padding:48px 24px;text-align:center;color:#888}}
+</style></head>
+<body>
+<h1>Черновики SEO-конвейера</h1>
+<p class="lead">Это превью неопубликованных статей. Видно только вам по логину. <b>Не индексируется</b> поисковиками.</p>
+<div style="margin:0 0 20px;display:flex;gap:8px;flex-wrap:wrap;font-size:13px">
+  <a href="{repo_url}" target="_blank" rel="noopener" style="background:#fff;border:1px solid #d0d7de;color:#24292f;padding:6px 12px;border-radius:6px;text-decoration:none">📁 Репо на GitHub</a>
+  <a href="{prompts_url}" target="_blank" rel="noopener" style="background:#fff;border:1px solid #d0d7de;color:#24292f;padding:6px 12px;border-radius:6px;text-decoration:none">🤖 Промпты агентов (.claude/agents)</a>
+  <a href="{readme_url}" target="_blank" rel="noopener" style="background:#fff;border:1px solid #d0d7de;color:#24292f;padding:6px 12px;border-radius:6px;text-decoration:none">📖 Инструкция (README)</a>
+  <a href="{issues_url}" target="_blank" rel="noopener" style="background:#fff;border:1px solid #d0d7de;color:#24292f;padding:6px 12px;border-radius:6px;text-decoration:none">💬 Комментарии и задачи</a>
+</div>
+{table}
+</body></html>"""
+
+
+@app.get("/preview", include_in_schema=False)
+@app.get("/preview/", include_in_schema=False)
+def preview_index(_user: str = Depends(_check_preview_auth)):
+    items = _list_drafts()
+    if not items:
+        body = '<div class="empty">Пока нет черновиков. Запустите конвейер агентов и обновите страницу.</div>'
+    else:
+        rows = []
+        for it in items:
+            fc = it["factcheck_passed"]
+            fc_html = '<span class="ok">да</span>' if fc is True else (
+                '<span class="fail">нет</span>' if fc is False else '<span style="color:#999">-</span>'
+            )
+            chars = it["text_chars"]
+            words = it["text_words"]
+            size_html = f'{chars} зн. / {words} сл.' if chars and words else '-'
+            e = html.escape
+            rows.append(
+                f'<tr>'
+                f'<td><span class="cat">{e(str(it["category"]))}</span></td>'
+                f'<td><a class="title" href="/preview/{e(it["slug"])}">{e(it["title"])}</a>'
+                f'<div class="meta slug">{e(it["slug"])}</div></td>'
+                f'<td>{size_html}</td>'
+                f'<td>{fc_html}</td>'
+                f'<td>{e(it["updated_at"])}</td>'
+                f'</tr>'
+            )
+        table = (
+            '<table>'
+            '<thead><tr><th>Категория</th><th>Заголовок / slug</th><th>Объём</th><th>Фактчек</th><th>Обновлено</th></tr></thead>'
+            f'<tbody>{"".join(rows)}</tbody>'
+            '</table>'
+        )
+        body = table
+    repo_url = f"https://github.com/{GITHUB_REPO}" if GITHUB_REPO else "#"
+    prompts_url = f"{repo_url}/tree/{GITHUB_BRANCH}/.claude/agents" if GITHUB_REPO else "#"
+    readme_url = f"{repo_url}#readme" if GITHUB_REPO else "#"
+    issues_url = f"{repo_url}/issues/new" if GITHUB_REPO else "#"
+    response = HTMLResponse(_PREVIEW_INDEX_TPL.format(
+        table=body, repo_url=repo_url, prompts_url=prompts_url,
+        readme_url=readme_url, issues_url=issues_url,
+    ))
+    response.headers["X-Robots-Tag"] = "noindex, nofollow"
+    response.headers["Cache-Control"] = "no-store"
+    return response
+
+
+@app.get("/preview/{slug}", include_in_schema=False)
+def preview_slug(slug: str, _user: str = Depends(_check_preview_auth)):
+    slug = _safe_slug(slug)
+    article = DRAFTS_DIR / slug / "article.html"
+    if not article.exists():
+        raise HTTPException(status_code=404, detail="Черновик не найден")
+    raw = article.read_text(encoding="utf-8")
+    # Принудительный noindex в самом HTML (на случай если кто-то скопирует исходник)
+    if '<meta name="robots"' not in raw.lower():
+        raw = raw.replace("<head>", '<head>\n  <meta name="robots" content="noindex,nofollow"/>', 1)
+    # Плавающая панель: ссылки на GitHub для правок (статья + meta.json)
+    if GITHUB_REPO:
+        edit_article = f"https://github.com/{GITHUB_REPO}/edit/{GITHUB_BRANCH}/drafts/{slug}/article.html"
+        edit_meta = f"https://github.com/{GITHUB_REPO}/edit/{GITHUB_BRANCH}/drafts/{slug}/meta.json"
+        bar = (
+            '<div style="position:fixed;top:12px;right:12px;z-index:99999;display:flex;gap:8px;'
+            'font:14px system-ui,-apple-system,Segoe UI,Roboto,sans-serif">'
+            f'<a href="{edit_article}" target="_blank" rel="noopener" '
+            'style="background:#0969da;color:#fff;padding:8px 14px;border-radius:6px;'
+            'text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)">✏️ Править текст на GitHub</a>'
+            f'<a href="{edit_meta}" target="_blank" rel="noopener" '
+            'style="background:#6e7781;color:#fff;padding:8px 14px;border-radius:6px;'
+            'text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)">⚙️ Правки meta</a>'
+            '<a href="/preview/" '
+            'style="background:#fff;color:#24292f;padding:8px 14px;border-radius:6px;'
+            'text-decoration:none;border:1px solid #d0d7de">← К списку</a>'
+            '</div>'
+        )
+        if "</body>" in raw:
+            raw = raw.replace("</body>", bar + "</body>", 1)
+        else:
+            raw = raw + bar
+    response = HTMLResponse(raw)
+    response.headers["X-Robots-Tag"] = "noindex, nofollow"
+    response.headers["Cache-Control"] = "no-store"
+    return response
 
 
 # ============ STATIC ============

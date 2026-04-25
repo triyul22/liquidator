@@ -1,0 +1,19 @@
+{
+  "slug": "spisat-dolgi-po-kreditam-bez-imushchestva",
+  "scores": {
+    "structure_overlap": 0.0,
+    "thesis_similarity": 0.0,
+    "cta_overlap": 0.0,
+    "textru_uniqueness": null
+  },
+  "thresholds": {
+    "structure_overlap": 0.4,
+    "thesis_similarity": 0.3,
+    "cta_overlap": 0.2
+  },
+  "passed": true,
+  "peers_compared": 0,
+  "conflicts": [],
+  "recommendation": "ok",
+  "note": "База эмбеддингов пуста (peers_compared=0): это первая статья. Проверка пройдена формально, но реальное сравнение начнётся со второй статьи."
+}
